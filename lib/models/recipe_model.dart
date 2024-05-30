@@ -11,7 +11,7 @@ class RecipeModel {
     this.appUrl = "url",
   });
 
-  factory RecipeModel.fromMap(Map recipe) {
+  factory RecipeModel.fromMap(Map<String, dynamic> recipe) {
     return RecipeModel(
       applabel: recipe["label"],
       appCalories: recipe["calories"],
