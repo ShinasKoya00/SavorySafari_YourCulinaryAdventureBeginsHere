@@ -3,18 +3,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:savory_safari/screens/widgets/search_page.dart';
+import 'package:savory_safari/models/recipe_model.dart';
 
-import '../models/recipe_model.dart';
+class SearchPage extends StatefulWidget {
+  final String query;
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const SearchPage({super.key, required this.query});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SearchPageState extends State<SearchPage> {
   bool _isLoading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
   TextEditingController searchController = TextEditingController();
@@ -66,14 +66,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getRecipe('chicken');
+    getRecipe(widget.query);
   }
 
   void _searchRecipe() {
     if (searchController.text.trim().isEmpty) {
       log("Blank search");
     } else {
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => SearchPage(query: searchController.text)));
     }
   }
@@ -137,75 +137,9 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 30),
+                    Text("Your result for ${widget.query} is ready"),
                     const SizedBox(height: 20),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "WHAT DO YOU WANT TO COOK TODAY?",
-                        style: TextStyle(fontSize: 33, color: Colors.white),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Let's Cook Something New!",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 70,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: recipeCategoryList.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 150,
-                            margin: const EdgeInsets.only(right: 15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white,
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                log("section [$index] clicked");
-                              },
-                              child: Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(
-                                      recipeCategoryList[index]["imgUrl"],
-                                      fit: BoxFit.cover,
-                                      height: height,
-                                      width: width,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Container(
-                                        padding: const EdgeInsets.all(8),
-                                        color: Colors.black54,
-                                        child: Text(
-                                          recipeCategoryList[index]["heading"],
-                                          style: const TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
                     _isLoading
                         ? const CircularProgressIndicator()
                         : ListView.builder(
