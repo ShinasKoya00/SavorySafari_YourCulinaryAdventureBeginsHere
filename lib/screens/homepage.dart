@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 
 import '../models/recipe_model.dart';
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       print("Blank search");
     } else {
       getRecipe(searchController.text);
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(Duration(seconds: 10), () {
         searchController.clear();
       });
     }
@@ -125,6 +127,21 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
+                      height: 80,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            width: 150,
+                            margin: EdgeInsets.only(right: 15, top: 7, bottom: 7),
+                            color: Colors.white,
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
                       child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -171,9 +188,36 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     Positioned(
-                                        top: 0,
-                                        right: 0,
-                                        child: Text(recipeList[index].appCalories.toString().substring(0, 5)))
+                                      top: 0,
+                                      right: 0,
+                                      height: 30,
+                                      width: 80,
+                                      child: Container(
+                                        alignment: Alignment.centerLeft,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(15),
+                                                bottomLeft: Radius.circular(15))),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.local_fire_department,
+                                              size: 18,
+                                            ),
+                                            SizedBox(
+                                              width: 3,
+                                            ),
+                                            Text(
+                                              recipeList[index].appCalories.toString().substring(0, 6),
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
