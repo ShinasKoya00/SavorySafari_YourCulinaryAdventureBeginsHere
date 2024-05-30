@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:savory_safari/screens/widgets/search_page.dart';
+import 'package:savory_safari/widgets/search_page.dart';
 
 import '../models/recipe_model.dart';
 
@@ -171,6 +171,11 @@ class _HomePageState extends State<HomePage> {
                             child: InkWell(
                               onTap: () {
                                 log("section [$index] clicked");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchPage(query: recipeCategoryList[index]["heading"])));
                               },
                               child: Stack(
                                 children: [
