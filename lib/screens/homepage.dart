@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -42,6 +41,17 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  void _searchRecipe() {
+    if (searchController.text.trim().isEmpty) {
+      print("Blank search");
+    } else {
+      getRecipe(searchController.text);
+      Future.delayed(Duration(seconds: 5), () {
+        searchController.clear();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -65,68 +75,118 @@ class _HomePageState extends State<HomePage> {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(3, 0, 7, 0),
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.blueAccent,
-                          ),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            controller: searchController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Let's cook something",
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(3, 0, 7, 0),
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.blueAccent,
                             ),
-                            onSubmitted: (value) {
-                              _searchRecipe();
-                            },
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: TextField(
+                              controller: searchController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Let's cook something",
+                              ),
+                              onSubmitted: (value) {
+                                _searchRecipe();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "WHAT DO YOU WANT TO COOK TODAY?",
-                      style: TextStyle(fontSize: 33, color: Colors.white),
+                    SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "WHAT DO YOU WANT TO COOK TODAY?",
+                        style: TextStyle(fontSize: 33, color: Colors.white),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Let's Cook Something New!",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Let's Cook Something New!",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
+                    Container(
+                      child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: recipeList.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {},
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                margin: EdgeInsets.only(top: 20),
+                                child: Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.network(
+                                        recipeList[index].appimgUrl,
+                                        fit: BoxFit.cover,
+                                        height: 220,
+                                        width: width,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black38,
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(15),
+                                            bottomRight: Radius.circular(15),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          recipeList[index].applabel,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: Text(recipeList[index].appCalories.toString().substring(0, 5)))
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ],
       ),
     );
-  }
-
-  void _searchRecipe() {
-    if (searchController.text.trim().isEmpty) {
-      print("Blank search");
-    } else {
-      getRecipe(searchController.text);
-    }
   }
 }
