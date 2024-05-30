@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:savory_safari/screens/homepage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:savory_safari/screens/onboarding_page.dart';
 
