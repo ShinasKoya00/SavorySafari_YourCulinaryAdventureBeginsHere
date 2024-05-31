@@ -27,29 +27,14 @@ class OnboardingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            MyText(
-              text: "Cooking",
-              fontWeight: FontWeight.w900,
-              fontSize: 65,
-            ),
+            MyText(text: "Cooking", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
             // Add some space between the texts
-            MyText(
-              text: "Like a",
-              fontWeight: FontWeight.w900,
-              fontSize: 65,
-            ),
+            MyText(text: "Like a", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
 
-            MyText(
-              text: "Chef",
-              fontWeight: FontWeight.w900,
-              fontSize: 65,
-            ),
+            MyText(text: "Chef", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
             SizedBox(height: 15),
             MyText(
-              text: "Is a Piece of Cake!",
-              fontSize: 25,
-              fontWeight: FontWeight.w100,
-            ),
+                text: "Is a Piece of Cake!", fontSize: 25, fontWeight: FontWeight.w100, color: MyColors.grey),
             SizedBox(height: 40),
             Container(
               height: 60,
@@ -69,7 +54,7 @@ class OnboardingPage extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
                   },
-                  child: MyText(text: "Get Started")),
+                  child: MyText(text: "Get Started", color: MyColors.grey)),
             ),
             SizedBox(
               height: 70,
@@ -85,12 +70,14 @@ class MyText extends StatelessWidget {
   final String text;
   final double fontSize;
   final FontWeight fontWeight;
+  final Color color;
 
   const MyText({
     super.key,
     required this.text,
     this.fontSize = 22,
     this.fontWeight = FontWeight.w400,
+    this.color = Colors.black,
   });
 
   @override
@@ -102,7 +89,7 @@ class MyText extends StatelessWidget {
         style: TextStyle(
           fontSize: fontSize,
           fontWeight: fontWeight,
-          color: MyColors.grey,
+          color: color,
         ),
       ),
     );
