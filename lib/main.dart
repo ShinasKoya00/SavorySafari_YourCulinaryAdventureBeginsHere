@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:savory_safari/models/recipe_category_model.dart';
+import 'package:savory_safari/models/recipe_model.dart';
+import 'package:savory_safari/screens/homepage.dart';
 import 'package:savory_safari/screens/onboarding_page.dart';
+import 'package:savory_safari/screens/recipe_details.dart';
 import 'package:savory_safari/screens/search_page.dart';
 
 void main() {
@@ -19,7 +23,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: OnboardingPage(),
+
+      home: HomePage(),
       // home: SearchPage(
       //   query: "juice",
       // ),

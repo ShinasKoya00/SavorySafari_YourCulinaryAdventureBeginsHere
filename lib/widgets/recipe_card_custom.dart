@@ -59,7 +59,7 @@ class RecipeCardCustom extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // background image section
+            // foreground black overlay section
             Positioned(
               top: 0,
               bottom: 0,

@@ -156,7 +156,12 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) => RecipeCardCustom(
                           onTap: () {
                             log("top slider is pressed");
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetails()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecipeDetails(
+                                          recipe: recipeList[index],
+                                        )));
                           },
                           width: width,
                           recipeList: recipeList,
@@ -182,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => ContainerShadowBox(
                     onTap: () {
-                      log("top slider is pressed");
+                      log("middle slider is pressed");
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -216,8 +221,13 @@ class _HomePageState extends State<HomePage> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) => RecipeCardCustom(
                           onTap: () {
-                            log("top slider is pressed");
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetails()));
+                            log("bottom slider is pressed");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecipeDetails(
+                                          recipe: recipeList[index],
+                                        )));
                           },
                           width: 200,
                           recipeList: recipeList,
