@@ -6,6 +6,7 @@ class ContainerShadowBox extends StatelessWidget {
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final Color color;
+  final Color textColor;
   final BorderRadius? borderRadius;
   final String? imageAsset;
   final String? imageNetwork;
@@ -20,6 +21,7 @@ class ContainerShadowBox extends StatelessWidget {
     this.margin,
     this.padding,
     this.color = Colors.white,
+    this.textColor = Colors.black,
     this.borderRadius,
     this.imageAsset,
     this.imageNetwork,
@@ -58,10 +60,12 @@ class ContainerShadowBox extends StatelessWidget {
             : imageNetwork != null
                 ? Image.network(
                     imageNetwork!,
-
                   )
                 : text != null
-                    ? Text(text!)
+                    ? Text(
+                        text!,
+                        style: TextStyle(color: textColor),
+                      )
                     : child,
       ),
     );
