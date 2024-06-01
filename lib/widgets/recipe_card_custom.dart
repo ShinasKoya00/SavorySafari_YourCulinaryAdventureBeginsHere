@@ -13,6 +13,8 @@ class RecipeCardCustom extends StatelessWidget {
   final String ingredientsCount;
   final BoxFit imageFit;
   final VoidCallback? onTap;
+  final double calorieIconSize;
+  final double calorieFontSize;
 
   const RecipeCardCustom({
     super.key,
@@ -24,6 +26,8 @@ class RecipeCardCustom extends StatelessWidget {
     required this.ingredientsCount,
     required this.imageFit,
     this.onTap,
+    this.calorieIconSize = 17,
+    this.calorieFontSize = 16,
   });
 
   @override
@@ -67,6 +71,40 @@ class RecipeCardCustom extends StatelessWidget {
                       Colors.transparent,
                     ],
                   ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 24,
+              left: 13,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), boxShadow: [
+                  BoxShadow(
+                    blurRadius: 5,
+                    spreadRadius: 1,
+                    color: Colors.black.withOpacity(0.7),
+                  )
+                ]),
+                child: Row(
+                  children: [
+                    Icon(
+                      CupertinoIcons.flame_fill,
+                      color: Colors.white,
+                      size: calorieIconSize,
+                    ),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    Text(
+                      "12.556",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: calorieFontSize,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

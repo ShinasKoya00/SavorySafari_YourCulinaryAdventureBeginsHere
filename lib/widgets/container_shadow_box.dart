@@ -7,7 +7,8 @@ class ContainerShadowBox extends StatelessWidget {
   final EdgeInsets? padding;
   final Color color;
   final BorderRadius? borderRadius;
-  final String? image;
+  final String? imageAsset;
+  final String? imageNetwork;
   final String? text;
   final Widget? child;
   final VoidCallback? onTap;
@@ -20,7 +21,8 @@ class ContainerShadowBox extends StatelessWidget {
     this.padding,
     this.color = Colors.white,
     this.borderRadius,
-    this.image,
+    this.imageAsset,
+    this.imageNetwork,
     this.text,
     this.child,
     this.onTap,
@@ -48,14 +50,19 @@ class ContainerShadowBox extends StatelessWidget {
           color: color,
           borderRadius: borderRadius,
         ),
-        child: image != null
+        child: imageAsset != null
             ? Image.asset(
-                image!,
+                imageAsset!,
                 scale: 5.5,
               )
-            : text != null
-                ? Text(text!)
-                : child,
+            : imageNetwork != null
+                ? Image.network(
+                    imageNetwork!,
+
+                  )
+                : text != null
+                    ? Text(text!)
+                    : child,
       ),
     );
   }

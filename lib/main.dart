@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:savory_safari/screens/onboarding_page.dart';
+import 'package:savory_safari/screens/search_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: const OnboardingPage(),
+      // home: OnboardingPage(),
+      home: SearchPage(
+        query: "chicken",
+      ),
     );
   }
 }

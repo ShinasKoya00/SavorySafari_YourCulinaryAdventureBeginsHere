@@ -3,11 +3,19 @@ import 'package:flutter/material.dart';
 class TimeAndIngredientsText extends StatelessWidget {
   final String ingredientsCount;
   final String hoursCount;
+  final Color fontColor;
+  final double heightBetweenRows;
+  final Color fontColorBold;
+  final double fontSize;
 
   const TimeAndIngredientsText({
     super.key,
     required this.ingredientsCount,
     required this.hoursCount,
+    this.fontColor = Colors.white,
+    this.fontColorBold = Colors.white,
+    this.heightBetweenRows = 2.0,
+    this.fontSize = 14.0,
   });
 
   @override
@@ -20,7 +28,8 @@ class TimeAndIngredientsText extends StatelessWidget {
             Text(
               ingredientsCount,
               style: TextStyle(
-                color: Colors.white,
+                color: fontColorBold,
+                fontSize: fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -30,20 +39,22 @@ class TimeAndIngredientsText extends StatelessWidget {
             Text(
               "ingrediants",
               style: TextStyle(
-                color: Colors.white,
+                color: fontColor,
+                fontSize: fontSize,
               ),
             )
           ],
         ),
         SizedBox(
-          height: 2,
+          height: heightBetweenRows,
         ),
         Row(
           children: [
             Text(
               hoursCount,
               style: TextStyle(
-                color: Colors.white,
+                color: fontColorBold,
+                fontSize: fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -53,7 +64,8 @@ class TimeAndIngredientsText extends StatelessWidget {
             Text(
               "hours",
               style: TextStyle(
-                color: Colors.white,
+                color: fontColor,
+                fontSize: fontSize,
               ),
             )
           ],
