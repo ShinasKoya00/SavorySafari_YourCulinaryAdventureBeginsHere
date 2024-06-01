@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TimeAndIngredientsText extends StatelessWidget {
-  final String ingredientsCount;
+  final int ingredientsCount;
   final String hoursCount;
   final Color fontColor;
   final double heightBetweenRows;
@@ -26,7 +26,7 @@ class TimeAndIngredientsText extends StatelessWidget {
         Row(
           children: [
             Text(
-              ingredientsCount,
+              ingredientsCount.toString(),
               style: TextStyle(
                 color: fontColorBold,
                 fontSize: fontSize,
@@ -51,7 +51,7 @@ class TimeAndIngredientsText extends StatelessWidget {
         Row(
           children: [
             Text(
-              hoursCount,
+              hoursCount.toString(),
               style: TextStyle(
                 color: fontColorBold,
                 fontSize: fontSize,

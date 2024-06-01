@@ -8,19 +8,22 @@ class RecipeCardCustom extends StatelessWidget {
   final double width;
   final List<RecipeModel> recipeList;
   final String cardImage;
+  final String calorieCount;
   final String cardTitle;
   final String hoursCount;
-  final String ingredientsCount;
+  final int ingredientsCount;
   final BoxFit imageFit;
   final VoidCallback? onTap;
   final double calorieIconSize;
   final double calorieFontSize;
+  final double titleTimeLeftPosition;
 
   const RecipeCardCustom({
     super.key,
     required this.width,
     required this.recipeList,
     required this.cardTitle,
+    required this.calorieCount,
     required this.cardImage,
     required this.hoursCount,
     required this.ingredientsCount,
@@ -28,6 +31,7 @@ class RecipeCardCustom extends StatelessWidget {
     this.onTap,
     this.calorieIconSize = 17,
     this.calorieFontSize = 16,
+    this.titleTimeLeftPosition = 25,
   });
 
   @override
@@ -55,6 +59,7 @@ class RecipeCardCustom extends StatelessWidget {
         ),
         child: Stack(
           children: [
+            // background image section
             Positioned(
               top: 0,
               bottom: 0,
@@ -74,6 +79,8 @@ class RecipeCardCustom extends StatelessWidget {
                 ),
               ),
             ),
+
+            //calorie section
             Positioned(
               top: 24,
               left: 13,
@@ -97,7 +104,7 @@ class RecipeCardCustom extends StatelessWidget {
                       width: 3,
                     ),
                     Text(
-                      "12.556",
+                      calorieCount.toString(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,
@@ -108,6 +115,8 @@ class RecipeCardCustom extends StatelessWidget {
                 ),
               ),
             ),
+
+            // bookmark section
             const Positioned(
               right: 15,
               top: 20,
@@ -117,9 +126,11 @@ class RecipeCardCustom extends StatelessWidget {
                 color: MyColors.grey,
               ),
             ),
+
+            // recipe card title and ingredients and time required
             Positioned(
               bottom: 20,
-              left: 25,
+              left: titleTimeLeftPosition,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

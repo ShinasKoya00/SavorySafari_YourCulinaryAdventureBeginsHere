@@ -197,8 +197,7 @@ class _SearchPageState extends State<SearchPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: width - 195,
-                                color: Colors.red.withOpacity(0.5),
+                                width: width - 200,
                                 child: Text(
                                   recipeList[index].applabel,
                                   overflow: TextOverflow.ellipsis,
@@ -210,8 +209,8 @@ class _SearchPageState extends State<SearchPage> {
                                 height: 7,
                               ),
                               TimeAndIngredientsText(
-                                ingredientsCount: "12",
-                                hoursCount: "0.4",
+                                ingredientsCount: recipeList[index].appIngredients,
+                                hoursCount: recipeList[index].appPrepTime,
                                 fontColor: Colors.grey.shade600,
                                 fontColorBold: Colors.grey.shade800,
                                 fontSize: 15,

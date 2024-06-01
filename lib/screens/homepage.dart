@@ -162,8 +162,9 @@ class _HomePageState extends State<HomePage> {
                           recipeList: recipeList,
                           cardImage: recipeList[index].appimgUrl,
                           cardTitle: recipeList[index].applabel,
-                          ingredientsCount: "12",
-                          hoursCount: "1.5",
+                          calorieCount: recipeList[index].appCalories,
+                          ingredientsCount: recipeList[index].appIngredients,
+                          hoursCount: recipeList[index].appPrepTime,
                           imageFit: BoxFit.fitWidth,
                         ),
                       ),
@@ -202,6 +203,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 10),
               HeaderRow(title: "You might like it", subTitle: "Explore", icon: CupertinoIcons.right_chevron),
               SizedBox(height: 15),
+
+              // below horizontal scroller
               _isLoading
                   ? SizedBox(height: 200, width: width, child: Center(child: CircularProgressIndicator()))
                   : SizedBox(
@@ -220,11 +223,13 @@ class _HomePageState extends State<HomePage> {
                           recipeList: recipeList,
                           cardImage: recipeList[index].appimgUrl,
                           cardTitle: recipeList[index].applabel,
-                          ingredientsCount: "12",
-                          hoursCount: "1.5",
+                          calorieCount: recipeList[index].appCalories,
+                          ingredientsCount: recipeList[index].appIngredients,
+                          hoursCount: recipeList[index].appPrepTime,
                           imageFit: BoxFit.fitHeight,
                           calorieIconSize: 13,
                           calorieFontSize: 12,
+                          titleTimeLeftPosition: 18,
                         ),
                       ),
                     ),

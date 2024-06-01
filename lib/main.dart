@@ -19,10 +19,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      // home: OnboardingPage(),
-      home: SearchPage(
-        query: "chicken",
-      ),
+      home: OnboardingPage(),
+      // home: SearchPage(
+      //   query: "juice",
+      // ),
     );
   }
 }
