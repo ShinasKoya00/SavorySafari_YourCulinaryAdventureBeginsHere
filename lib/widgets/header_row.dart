@@ -30,7 +30,7 @@ class HeaderRow extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [Text(subTitle), SizedBox(width: 5), Icon(icon, size: 11)]),
+              children: [Text(subTitle), const SizedBox(width: 5), Icon(icon, size: 11)]),
         )
       ],
     );

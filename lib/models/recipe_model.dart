@@ -42,7 +42,7 @@ class RecipeModel {
       appimgUrl: recipe["image"],
       appUrl: recipe["url"],
       appIngredients: ingredientsCount,
-      appIngredientsLabel: ingredientsLabel!,
+      appIngredientsLabel: ingredientsLabel,
       appPrepTime: appPrepTime,
     );
   }

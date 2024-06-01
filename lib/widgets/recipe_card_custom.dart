@@ -85,7 +85,7 @@ class RecipeCardCustom extends StatelessWidget {
               top: 24,
               left: 13,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), boxShadow: [
                   BoxShadow(
                     blurRadius: 5,
@@ -100,7 +100,7 @@ class RecipeCardCustom extends StatelessWidget {
                       color: Colors.white,
                       size: calorieIconSize,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 3,
                     ),
                     Text(

@@ -33,7 +33,7 @@ class TimeAndIngredientsText extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Text(
@@ -58,7 +58,7 @@ class TimeAndIngredientsText extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Text(

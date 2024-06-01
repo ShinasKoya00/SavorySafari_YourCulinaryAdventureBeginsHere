@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -71,6 +73,7 @@ class _HomePageState extends State<HomePage> {
         context,
         MaterialPageRoute(builder: (context) => SearchPage(query: query)),
       );
+
       Timer(Duration(seconds: 10), () {
         searchController.clear();
       });
@@ -262,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
+                    colors: const [
                       MyColors.bottomNavTopBlack,
                       MyColors.bottomNavBottomBlack,
                     ],
@@ -278,7 +281,7 @@ class _HomePageState extends State<HomePage> {
                   // activeColor: MyColors.bottomNavBottomBlack,
 
                   tabBackgroundColor: MyColors.bottomNavGreenishYellow,
-                  tabs: [
+                  tabs: const [
                     GButton(
                       icon: CupertinoIcons.compass,
                     ),

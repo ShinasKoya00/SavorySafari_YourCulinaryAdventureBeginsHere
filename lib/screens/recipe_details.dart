@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:savory_safari/utils/colors.dart';
-import 'package:savory_safari/screens/search_page.dart';
 
 import '../models/recipe_model.dart';
 import '../widgets/container_shadow_box.dart';
@@ -61,21 +60,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
     _toggleButton(true);
   }
 
-  void _searchRecipe(String query) {
-    query = query.trim();
-    if (query.isEmpty) {
-      log("Blank search");
-    } else {
-      log("search pressed");
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SearchPage(query: query)),
-      );
-      Timer(Duration(seconds: 10), () {
-        searchController.clear();
-      });
-    }
-  }
 
   void _toggleButton(bool isIngredient) {
     setState(() {
@@ -131,7 +115,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   width: 45,
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  child: Icon(CupertinoIcons.left_chevron),
+                  child: const Icon(CupertinoIcons.left_chevron),
                 ),
               ),
 
@@ -140,10 +124,10 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  padding: EdgeInsets.only(left: 25, right: 25, top: 30),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
                   height: height * 0.6,
                   width: width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(40),
@@ -151,10 +135,10 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                   ),
                   child: _isLoading
-                      ? Container(
+                      ? SizedBox(
                           height: height * 0.6,
                           width: width,
-                          child: Center(
+                          child: const Center(
                             child: CircularProgressIndicator(),
                           ),
                         )
@@ -166,7 +150,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
                                   alignment: Alignment.center,
                                   height: 65,
                                   width: width,
@@ -175,13 +159,13 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 26,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                   height: 30,
                                   width: width,
                                   // color: Colors.red.withOpacity(0.5),
@@ -190,20 +174,20 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(Icons.watch_later_outlined, size: 18),
-                                          SizedBox(width: 5),
+                                          const Icon(Icons.watch_later_outlined, size: 18),
+                                          const SizedBox(width: 5),
                                           Text(widget.recipe.appPrepTime,
                                               style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
-                                          SizedBox(width: 3),
+                                          const SizedBox(width: 3),
                                           Text("min",
                                               style: TextStyle(fontSize: 17, color: Colors.grey.shade600))
                                         ],
                                       ),
-                                      SizedBox(width: 30),
+                                      const SizedBox(width: 30),
                                       Row(
                                         children: [
-                                          Icon(CupertinoIcons.heart, size: 18),
-                                          SizedBox(width: 5),
+                                          const Icon(CupertinoIcons.heart, size: 18),
+                                          const SizedBox(width: 5),
                                           Text("256",
                                               style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
                                         ],
@@ -211,13 +195,13 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                                 Container(
                                   height: 80,
                                   width: width,
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
                                   decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade400)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -226,17 +210,17 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                         header: "Calories",
                                         value: widget.recipe.appCalories,
                                       ),
-                                      SizedBox(width: 15),
+                                      const SizedBox(width: 15),
                                       CalorieCarbProteinFat(
                                         header: "Carbs",
                                         value: widget.recipe.appCarbs,
                                       ),
-                                      SizedBox(width: 15),
+                                      const SizedBox(width: 15),
                                       CalorieCarbProteinFat(
                                         header: "Protein",
                                         value: widget.recipe.appProtein,
                                       ),
-                                      SizedBox(width: 15),
+                                      const SizedBox(width: 15),
                                       CalorieCarbProteinFat(
                                         header: "Fat",
                                         value: widget.recipe.appFat,
@@ -244,7 +228,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 30),
+                                const SizedBox(height: 30),
                                 // Flexible(
                                 //   child: Container(
                                 //     color: Colors.red.withOpacity(0.5),
@@ -275,7 +259,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                       textColor:
                                           _isIngredientSelected ? MyColors.grey : MyColors.bottomNavTopBlack,
                                     ),
-                                    SizedBox(width: 50),
+                                    const SizedBox(width: 50),
                                     ContainerShadowBox(
                                       onTap: () {
                                         _toggleButton(false);
@@ -291,15 +275,15 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 IndexedStack(
                                   index: _stackIndex,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       height: 300,
                                       width: width,
                                       child: ListView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
+                                        physics: const NeverScrollableScrollPhysics(),
                                         padding: EdgeInsets.zero,
                                         itemCount: widget.recipe.appIngredientsLabel.length,
                                         itemBuilder: (context, index) {
@@ -307,16 +291,16 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                             padding: const EdgeInsets.only(bottom: 5),
                                             child: Text(
                                               widget.recipe.appIngredientsLabel[index],
-                                              style: TextStyle(fontSize: 17),
+                                              style: const TextStyle(fontSize: 17),
                                             ),
                                           );
                                         },
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       height: 50,
                                       width: width,
-                                      child: Text("ajhd jhasbdj klasjda sjak"),
+                                      child: const Text("ajhd jhasbdj klasjda sjak"),
                                     )
                                   ],
                                 )
@@ -349,12 +333,12 @@ class CalorieCarbProteinFat extends StatelessWidget {
       children: [
         Text(
           header,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           value,
           style: TextStyle(

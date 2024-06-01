@@ -20,6 +20,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  // ignore: unused_field
   bool _isLoading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
   TextEditingController searchController = TextEditingController();
@@ -84,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
         context,
         MaterialPageRoute(builder: (context) => SearchPage(query: query)),
       );
-      Timer(Duration(seconds: 10), () {
+      Timer(const Duration(seconds: 10), () {
         searchController.clear();
       });
     }
@@ -150,18 +151,18 @@ class _SearchPageState extends State<SearchPage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: MyText(text: "Suitable recipe for ${widget.query}"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: width,
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -171,8 +172,8 @@ class _SearchPageState extends State<SearchPage> {
                       onTap: () {},
                       height: 120,
                       width: width,
-                      margin: EdgeInsets.only(bottom: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+                      margin: const EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
                       borderRadius: BorderRadius.circular(25),
                       color: Colors.white,
                       child: Row(
@@ -189,23 +190,23 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 25,
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: width - 200,
                                 child: Text(
                                   recipeList[index].applabel,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 7,
                               ),
                               TimeAndIngredientsText(

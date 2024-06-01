@@ -15,7 +15,7 @@ class OnboardingPage extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/thumbnails/savory_onboard.jpg"),
+            image: const AssetImage("assets/thumbnails/savory_onboard.jpg"),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Colors.black.withOpacity(0.55),
@@ -27,22 +27,22 @@ class OnboardingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            MyText(text: "Cooking", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
+            const MyText(text: "Cooking", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
             // Add some space between the texts
-            MyText(text: "Like a", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
+            const MyText(text: "Like a", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
 
-            MyText(text: "Chef", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
-            SizedBox(height: 15),
-            MyText(
+            const MyText(text: "Chef", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
+            const SizedBox(height: 15),
+            const MyText(
                 text: "Is a Piece of Cake!", fontSize: 25, fontWeight: FontWeight.w100, color: MyColors.grey),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Container(
               height: 60,
               width: 190,
               decoration: BoxDecoration(
                 color: MyColors.darkGreen,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     offset: Offset(0.0, 10.0),
                     blurRadius: 10.0,
@@ -52,11 +52,11 @@ class OnboardingPage extends StatelessWidget {
               ),
               child: InkWell(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
                   },
-                  child: MyText(text: "Get Started", color: MyColors.grey)),
+                  child: const MyText(text: "Get Started", color: MyColors.grey)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 70,
             )
           ],
