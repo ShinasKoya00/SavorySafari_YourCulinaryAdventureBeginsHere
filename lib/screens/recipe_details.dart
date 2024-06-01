@@ -64,6 +64,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
   void initState() {
     super.initState();
     getRecipe("ladoo");
+    _toggleButton(true);
   }
 
   void _searchRecipe(String query) {
@@ -157,7 +158,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   ),
                   child: SingleChildScrollView(
                     child: SizedBox(
-                      height: height * 0.6,
+                      height: height * 0.7,
                       width: width,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,21 +240,21 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
-                          Flexible(
-                            child: Container(
-                              color: Colors.red.withOpacity(0.5),
-                              width: width,
-                              child: Text(
-                                "akjndasjk askndasjk askjas xcjk asjk ass jk askjas xcjk asjk ass xckasassdfdasfndasjk aikaxckasassdfdasfndasjk aikasjkas asiojcas cxasjckndasjk askjakas kndasjk aikasjkas asiojcas cxasjckndasjk askja c, djasoid xcikasjkas asiojcas cxasjckasc, djasoid xcikasjkas asiojcas cxasjc",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 6,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 25),
+                          SizedBox(height: 30),
+                          // Flexible(
+                          //   child: Container(
+                          //     color: Colors.red.withOpacity(0.5),
+                          //     width: width,
+                          //     child: Text(
+                          //       "akjndasjk askndasjk askjas xcjk asjk ass jk askjas xcjk asjk ass xckasassdfdasfndasjk aikaxckasassdfdasfndasjk aikasjkas asiojcas cxasjckndasjk askjakas kndasjk aikasjkas asiojcas cxasjckndasjk askja c, djasoid xcikasjkas asiojcas cxasjckasc, djasoid xcikasjkas asiojcas cxasjc",
+                          //       overflow: TextOverflow.ellipsis,
+                          //       maxLines: 6,
+                          //       textAlign: TextAlign.center,
+                          //       style: TextStyle(fontSize: 16),
+                          //     ),
+                          //   ),
+                          // ),
+
                           ButtonBar(
                             alignment: MainAxisAlignment.center,
                             children: [
@@ -284,14 +285,27 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 20),
                           IndexedStack(
                             index: _stackIndex,
                             children: [
                               Container(
-                                height: 50,
+                                height: 300,
                                 width: width,
-                                child: Text("sdfgdg sdyhgfuyhs uydfuyh sduyghsauh"),
+                                child: ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.zero,
+                                  itemCount: widget.recipe.appIngredientsLabel.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: Text(
+                                        widget.recipe.appIngredientsLabel[index],
+                                        style: TextStyle(fontSize: 17),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                               Container(
                                 height: 50,
