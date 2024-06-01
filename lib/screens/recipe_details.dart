@@ -4,14 +4,8 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart';
-import 'package:savory_safari/models/recipe_category_model.dart';
-import 'package:savory_safari/screens/onboarding_page.dart';
-import 'package:savory_safari/screens/recipe_details.dart';
 import 'package:savory_safari/utils/colors.dart';
-import 'package:savory_safari/widgets/header_row.dart';
-import 'package:savory_safari/widgets/recipe_card_custom.dart';
 import 'package:savory_safari/screens/search_page.dart';
 
 import '../models/recipe_model.dart';
@@ -156,168 +150,180 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       topLeft: Radius.circular(40),
                     ),
                   ),
-                  child: SingleChildScrollView(
-                    child: SizedBox(
-                      height: height * 0.7,
-                      width: width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            alignment: Alignment.center,
-                            height: 65,
-                            width: width,
-                            child: Text(
-                              widget.recipe.applabel,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                  child: _isLoading
+                      ? Container(
+                          height: height * 0.6,
+                          width: width,
+                          child: Center(
+                            child: CircularProgressIndicator(),
                           ),
-                          Container(
-                            height: 30,
+                        )
+                      : SingleChildScrollView(
+                          child: SizedBox(
+                            height: height * 0.7,
                             width: width,
-                            // color: Colors.red.withOpacity(0.5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.watch_later_outlined, size: 18),
-                                    SizedBox(width: 5),
-                                    Text(widget.recipe.appPrepTime,
-                                        style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
-                                    SizedBox(width: 3),
-                                    Text("min", style: TextStyle(fontSize: 17, color: Colors.grey.shade600))
-                                  ],
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  alignment: Alignment.center,
+                                  height: 65,
+                                  width: width,
+                                  child: Text(
+                                    widget.recipe.applabel,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                                SizedBox(width: 30),
-                                Row(
-                                  children: [
-                                    Icon(CupertinoIcons.heart, size: 18),
-                                    SizedBox(width: 5),
-                                    Text("256", style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            height: 80,
-                            width: width,
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade400)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CalorieCarbProteinFat(
-                                  header: "Calories",
-                                  value: widget.recipe.appCalories,
-                                ),
-                                SizedBox(width: 15),
-                                CalorieCarbProteinFat(
-                                  header: "Carbs",
-                                  value: widget.recipe.appCarbs,
-                                ),
-                                SizedBox(width: 15),
-                                CalorieCarbProteinFat(
-                                  header: "Protein",
-                                  value: widget.recipe.appProtein,
-                                ),
-                                SizedBox(width: 15),
-                                CalorieCarbProteinFat(
-                                  header: "Fat",
-                                  value: widget.recipe.appFat,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          // Flexible(
-                          //   child: Container(
-                          //     color: Colors.red.withOpacity(0.5),
-                          //     width: width,
-                          //     child: Text(
-                          //       "akjndasjk askndasjk askjas xcjk asjk ass jk askjas xcjk asjk ass xckasassdfdasfndasjk aikaxckasassdfdasfndasjk aikasjkas asiojcas cxasjckndasjk askjakas kndasjk aikasjkas asiojcas cxasjckndasjk askja c, djasoid xcikasjkas asiojcas cxasjckasc, djasoid xcikasjkas asiojcas cxasjc",
-                          //       overflow: TextOverflow.ellipsis,
-                          //       maxLines: 6,
-                          //       textAlign: TextAlign.center,
-                          //       style: TextStyle(fontSize: 16),
-                          //     ),
-                          //   ),
-                          // ),
-
-                          ButtonBar(
-                            alignment: MainAxisAlignment.center,
-                            children: [
-                              ContainerShadowBox(
-                                onTap: () {
-                                  _toggleButton(true);
-                                  _changeStackIndex(0);
-                                },
-                                height: 40,
-                                width: 100,
-                                borderRadius: BorderRadius.circular(50),
-                                color: _isIngredientSelected ? MyColors.darkGreen2 : MyColors.grey,
-                                text: "Ingredients",
-                                textColor: _isIngredientSelected ? MyColors.grey : MyColors.bottomNavTopBlack,
-                              ),
-                              SizedBox(width: 50),
-                              ContainerShadowBox(
-                                onTap: () {
-                                  _toggleButton(false);
-                                  _changeStackIndex(1);
-                                },
-                                height: 40,
-                                width: 100,
-                                borderRadius: BorderRadius.circular(50),
-                                color: _isIngredientSelected ? MyColors.grey : MyColors.darkGreen2,
-                                text: "Steps",
-                                textColor: _isIngredientSelected ? MyColors.bottomNavTopBlack : MyColors.grey,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          IndexedStack(
-                            index: _stackIndex,
-                            children: [
-                              Container(
-                                height: 300,
-                                width: width,
-                                child: ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  padding: EdgeInsets.zero,
-                                  itemCount: widget.recipe.appIngredientsLabel.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
-                                      child: Text(
-                                        widget.recipe.appIngredientsLabel[index],
-                                        style: TextStyle(fontSize: 17),
+                                Container(
+                                  height: 30,
+                                  width: width,
+                                  // color: Colors.red.withOpacity(0.5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.watch_later_outlined, size: 18),
+                                          SizedBox(width: 5),
+                                          Text(widget.recipe.appPrepTime,
+                                              style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
+                                          SizedBox(width: 3),
+                                          Text("min",
+                                              style: TextStyle(fontSize: 17, color: Colors.grey.shade600))
+                                        ],
                                       ),
-                                    );
-                                  },
+                                      SizedBox(width: 30),
+                                      Row(
+                                        children: [
+                                          Icon(CupertinoIcons.heart, size: 18),
+                                          SizedBox(width: 5),
+                                          Text("256",
+                                              style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                height: 50,
-                                width: width,
-                                child: Text("ajhd jhasbdj klasjda sjak"),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  height: 80,
+                                  width: width,
+                                  margin: EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade400)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CalorieCarbProteinFat(
+                                        header: "Calories",
+                                        value: widget.recipe.appCalories,
+                                      ),
+                                      SizedBox(width: 15),
+                                      CalorieCarbProteinFat(
+                                        header: "Carbs",
+                                        value: widget.recipe.appCarbs,
+                                      ),
+                                      SizedBox(width: 15),
+                                      CalorieCarbProteinFat(
+                                        header: "Protein",
+                                        value: widget.recipe.appProtein,
+                                      ),
+                                      SizedBox(width: 15),
+                                      CalorieCarbProteinFat(
+                                        header: "Fat",
+                                        value: widget.recipe.appFat,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 30),
+                                // Flexible(
+                                //   child: Container(
+                                //     color: Colors.red.withOpacity(0.5),
+                                //     width: width,
+                                //     child: Text(
+                                //       "akjndasjk askndasjk askjas xcjk asjk ass jk askjas xcjk asjk ass xckasassdfdasfndasjk aikaxckasassdfdasfndasjk aikasjkas asiojcas cxasjckndasjk askjakas kndasjk aikasjkas asiojcas cxasjckndasjk askja c, djasoid xcikasjkas asiojcas cxasjckasc, djasoid xcikasjkas asiojcas cxasjc",
+                                //       overflow: TextOverflow.ellipsis,
+                                //       maxLines: 6,
+                                //       textAlign: TextAlign.center,
+                                //       style: TextStyle(fontSize: 16),
+                                //     ),
+                                //   ),
+                                // ),
+
+                                ButtonBar(
+                                  alignment: MainAxisAlignment.center,
+                                  children: [
+                                    ContainerShadowBox(
+                                      onTap: () {
+                                        _toggleButton(true);
+                                        _changeStackIndex(0);
+                                      },
+                                      height: 40,
+                                      width: 100,
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: _isIngredientSelected ? MyColors.darkGreen2 : MyColors.grey,
+                                      text: "Ingredients",
+                                      textColor:
+                                          _isIngredientSelected ? MyColors.grey : MyColors.bottomNavTopBlack,
+                                    ),
+                                    SizedBox(width: 50),
+                                    ContainerShadowBox(
+                                      onTap: () {
+                                        _toggleButton(false);
+                                        _changeStackIndex(1);
+                                      },
+                                      height: 40,
+                                      width: 100,
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: _isIngredientSelected ? MyColors.grey : MyColors.darkGreen2,
+                                      text: "Steps",
+                                      textColor:
+                                          _isIngredientSelected ? MyColors.bottomNavTopBlack : MyColors.grey,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 20),
+                                IndexedStack(
+                                  index: _stackIndex,
+                                  children: [
+                                    Container(
+                                      height: 300,
+                                      width: width,
+                                      child: ListView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        padding: EdgeInsets.zero,
+                                        itemCount: widget.recipe.appIngredientsLabel.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(bottom: 5),
+                                            child: Text(
+                                              widget.recipe.appIngredientsLabel[index],
+                                              style: TextStyle(fontSize: 17),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 50,
+                                      width: width,
+                                      child: Text("ajhd jhasbdj klasjda sjak"),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                 ),
               ),
             ],
