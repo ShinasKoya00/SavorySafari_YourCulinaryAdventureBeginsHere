@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/screens/recipe_details.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/widgets/bookMarkState.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/my_text.dart';
 import 'package:savory_safari/widgets/time_and_ingredients_text.dart';
@@ -21,27 +22,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  // ignore: unused_field
   bool _isLoading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
   TextEditingController searchController = TextEditingController();
-  List recipeCategoryList = [
-    {
-      "imgUrl":
-          "https://img.freepik.com/free-photo/healthy-homemade-meal-beef-curry-with-naan-generated-by-ai_188544-41071.jpg",
-      "heading": "Paneer"
-    },
-    {
-      "imgUrl":
-          "https://img.freepik.com/free-photo/closeup-shot-deliciously-prepared-chicken-served-with-onions-chili-sauce_181624-61705.jpg",
-      "heading": "Grills"
-    },
-    {
-      "imgUrl":
-          "https://img.freepik.com/free-photo/freshly-baked-bread-rustic-table-ready-eat-generated-by-artificial-intelligence_188544-126941.jpg",
-      "heading": "Bread"
-    },
-  ];
 
   Future<void> getRecipe(String query) async {
     try {
@@ -172,7 +155,7 @@ class _SearchPageState extends State<SearchPage> {
                     itemBuilder: (context, index) => ContainerShadowBox(
                       onTap: () {
                         log("search box pressed");
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => RecipeDetails(
@@ -218,13 +201,25 @@ class _SearchPageState extends State<SearchPage> {
                               const SizedBox(
                                 height: 7,
                               ),
-                              TimeAndIngredientsText(
-                                ingredientsCount: recipeList[index].appIngredients,
-                                hoursCount: recipeList[index].appPrepTime,
-                                fontColor: Colors.grey.shade600,
-                                fontColorBold: Colors.grey.shade800,
-                                fontSize: 15,
-                                heightBetweenRows: 4,
+                              SizedBox(
+                                width: width - 200,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TimeAndIngredientsText(
+                                      ingredientsCount: recipeList[index].appIngredients,
+                                      hoursCount: recipeList[index].appPrepTime,
+                                      fontColor: Colors.grey.shade600,
+                                      fontColorBold: Colors.grey.shade800,
+                                      fontSize: 15,
+                                      heightBetweenRows: 4,
+                                    ),
+                                    Bookmarkstate(
+
+                                      color: Colors.black,
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           )

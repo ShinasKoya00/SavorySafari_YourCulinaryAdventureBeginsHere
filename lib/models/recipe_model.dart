@@ -5,11 +5,12 @@ class RecipeModel {
   late String appCarbs;
   late String appProtein;
   late String appFat;
-  late String appUrl;
+
   late int appIngredients;
   late List<String> appIngredientsLabel;
   late String appPrepTime;
   late List<String> appMealType;
+  final String appRecipeContentUrl;
 
   RecipeModel({
     this.applabel = "label",
@@ -18,11 +19,11 @@ class RecipeModel {
     this.appCarbs = "0.00",
     this.appProtein = "0.00",
     this.appFat = "0.00",
-    this.appUrl = "url",
     this.appIngredients = 0,
     this.appIngredientsLabel = const [],
     this.appPrepTime = "0.00",
     this.appMealType = const [],
+    this.appRecipeContentUrl = "appRecipeContentUrl",
   });
 
   factory RecipeModel.fromMap(Map<String, dynamic> recipe) {
@@ -43,11 +44,11 @@ class RecipeModel {
       appProtein: appProtein,
       appFat: appFat,
       appimgUrl: recipe["image"],
-      appUrl: recipe["url"],
       appIngredients: ingredientsCount,
       appIngredientsLabel: ingredientsLabel,
       appPrepTime: appPrepTime,
       appMealType: appMealType,
+      appRecipeContentUrl: recipe["url"],
     );
   }
 }

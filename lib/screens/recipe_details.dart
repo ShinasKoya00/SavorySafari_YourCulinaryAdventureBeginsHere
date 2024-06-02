@@ -5,8 +5,12 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:savory_safari/screens/recipe_content_page.dart';
 import 'package:savory_safari/utils/colors.dart';
 import 'package:savory_safari/widgets/calorie_carb_pro_fat.dart';
+import 'package:savory_safari/widgets/hours_dinetype_container.dart';
+import 'package:savory_safari/widgets/ingredient_steps_toggle.dart';
+import 'package:savory_safari/widgets/total_nutrients_container.dart';
 
 import '../models/recipe_model.dart';
 import '../widgets/container_shadow_box.dart';
@@ -58,10 +62,10 @@ class _RecipeDetailsState extends State<RecipeDetails> {
   void initState() {
     super.initState();
     getRecipe("ladoo");
-    _toggleButton(true);
+    _ingredientStepsToggleButton(true);
   }
 
-  void _toggleButton(bool isIngredient) {
+  void _ingredientStepsToggleButton(bool isIngredient) {
     setState(() {
       _isIngredientSelected = isIngredient;
     });
@@ -165,130 +169,19 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 30,
+                                HoursDineTypeContainer(
                                   width: width,
-                                  // color: Colors.red.withOpacity(0.5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.watch_later_outlined, size: 18),
-                                          const SizedBox(width: 5),
-                                          Text(widget.recipe.appPrepTime,
-                                              style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
-                                          const SizedBox(width: 3),
-                                          Text("hours",
-                                              style: TextStyle(fontSize: 17, color: Colors.grey.shade600))
-                                        ],
-                                      ),
-                                      const SizedBox(width: 30),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.restaurant_menu, size: 18),
-                                          const SizedBox(width: 5),
-                                          Text(widget.recipe.appMealType[0],
-                                              style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                  widget: widget,
                                 ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Container(
-                                  height: 80,
+                                const SizedBox(height: 15),
+                                TotalNutrientsContainer(
                                   width: width,
-                                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                                  decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade400)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CalorieCarbProteinFat(
-                                        header: "Calories",
-                                        value: widget.recipe.appCalories,
-                                      ),
-                                      const SizedBox(width: 15),
-                                      CalorieCarbProteinFat(
-                                        header: "Carbs",
-                                        value: widget.recipe.appCarbs,
-                                      ),
-                                      const SizedBox(width: 15),
-                                      CalorieCarbProteinFat(
-                                        header: "Protein",
-                                        value: widget.recipe.appProtein,
-                                      ),
-                                      const SizedBox(width: 15),
-                                      CalorieCarbProteinFat(
-                                        header: "Fat",
-                                        value: widget.recipe.appFat,
-                                      ),
-                                    ],
-                                  ),
+                                  recipe: widget.recipe,
                                 ),
                                 const SizedBox(height: 30),
-                                ButtonBar(
-                                  alignment: MainAxisAlignment.center,
-                                  children: [
-                                    ContainerShadowBox(
-                                      onTap: () {
-                                        _toggleButton(true);
-                                        _changeStackIndex(0);
-                                      },
-                                      height: 40,
-                                      width: 100,
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: _isIngredientSelected ? MyColors.darkGreen2 : MyColors.grey,
-                                      text: "Ingredients",
-                                      textColor:
-                                          _isIngredientSelected ? MyColors.grey : MyColors.bottomNavTopBlack,
-                                    ),
-                                    const SizedBox(width: 50),
-                                    ContainerShadowBox(
-                                      onTap: () {
-                                        _toggleButton(false);
-                                        _changeStackIndex(1);
-                                      },
-                                      height: 40,
-                                      width: 100,
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: _isIngredientSelected ? MyColors.grey : MyColors.darkGreen2,
-                                      text: "Steps",
-                                      textColor:
-                                          _isIngredientSelected ? MyColors.bottomNavTopBlack : MyColors.grey,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                IndexedStack(
-                                  index: _stackIndex,
-                                  children: [
-                                    SizedBox(
-                                      height: 300,
-                                      width: width,
-                                      child: ListView.builder(
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        padding: EdgeInsets.zero,
-                                        itemCount: widget.recipe.appIngredientsLabel.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(bottom: 5),
-                                            child: Text(
-                                              widget.recipe.appIngredientsLabel[index],
-                                              style: const TextStyle(fontSize: 17),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 50,
-                                      width: width,
-                                      child: const Text("ajhd jhasbdj klasjda sjak"),
-                                    )
-                                  ],
+                                IngredientsAndStepToggleContainer(
+                                  recipe: widget.recipe,
+                                  width: width,
                                 )
                               ],
                             ),

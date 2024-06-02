@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/widgets/bookMarkState.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/time_and_ingredients_text.dart';
 
@@ -41,10 +42,6 @@ class RecipeCardCustom extends StatefulWidget {
 }
 
 class _RecipeCardCustomState extends State<RecipeCardCustom> {
-  bool _isBookMarked = false;
-
-  void _isBookMarkClicked(bool isBookMarked) {}
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -131,28 +128,7 @@ class _RecipeCardCustomState extends State<RecipeCardCustom> {
             Positioned(
               right: 8,
               top: 15,
-              child: Container(
-                height: 40,
-                width: 40,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isBookMarked = !_isBookMarked;
-                    });
-                  },
-                  child: _isBookMarked
-                      ? Icon(
-                          CupertinoIcons.bookmark,
-                          size: 22,
-                          color: MyColors.grey,
-                        )
-                      : Icon(
-                          CupertinoIcons.bookmark_fill,
-                          size: 22,
-                          color: MyColors.bottomNavGreenishYellow,
-                        ),
-                ),
-              ),
+              child: Bookmarkstate(),
             ),
 
             // recipe card title and ingredients and time required

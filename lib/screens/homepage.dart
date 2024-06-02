@@ -90,13 +90,11 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
-
   @override
   void initState() {
     super.initState();
-    getRecipe1('chicken');
-    getRecipe2('ladoo');
+    getRecipe1('Indian chicken grill');
+    getRecipe2("ice Coffee");
   }
 
   void _searchRecipe(String query) {
@@ -323,14 +321,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                     GButton(
                       icon: CupertinoIcons.search_circle,
-                      // onPressed: () {
-                      //   log("Bottom Navigation is pressed");
-                      //   Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           SearchPage(query:),),);
-                      // },
+                      onPressed: () {
+                        log("Bottom Navigation is pressed");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(query: "juice"),
+                          ),
+                        );
+                      },
                     ),
                     GButton(
                       icon: CupertinoIcons.bookmark,

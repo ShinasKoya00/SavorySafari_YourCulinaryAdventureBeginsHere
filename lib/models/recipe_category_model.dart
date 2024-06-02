@@ -1,32 +1,32 @@
 List recipeCategoryList = [
   {
-    "heading": "sauce",
+    "heading": "Main course",
   },
   {
     "heading": "Drinks",
-  },
-  {
-    "heading": "Main course",
   },
   {
     "heading": "Salad",
   },
   {
-    "heading": "Sandwiches",
+    "heading": "Soup",
   },
   {
-    "heading": "Soup",
+    "heading": "Dinner",
   },
   {
     "heading": "Sweets",
   },
   {
+    "heading": "Sauce",
+  },
+  {
     "heading": "Desserts",
   },
   {
-    "heading": "Drinks",
+    "heading": "Biriyani",
   },
   {
-    "heading": "Drinks",
+    "heading": "Chicken",
   },
 ];

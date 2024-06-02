@@ -9,4 +9,5 @@ class MyColors {
   static const Color bottomNavBottomBlack = Color(0xff33373a);
   static const Color bottomNavTopBlack = Color(0xff484b4e);
   static const Color bottomNavGreenishYellow = Color(0xffeafa36);
+  static const Color bottomNavGreenishYellow2 = Color(0xffc4d530);
 }
