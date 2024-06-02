@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:savory_safari/screens/onboarding_page.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
+import 'package:savory_safari/widgets/my_text.dart';
 
 class HeaderRow extends StatelessWidget {
   final String title;

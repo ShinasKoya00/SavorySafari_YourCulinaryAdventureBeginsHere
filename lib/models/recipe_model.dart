@@ -9,6 +9,7 @@ class RecipeModel {
   late int appIngredients;
   late List<String> appIngredientsLabel;
   late String appPrepTime;
+  late List<String> appMealType;
 
   RecipeModel({
     this.applabel = "label",
@@ -21,10 +22,12 @@ class RecipeModel {
     this.appIngredients = 0,
     this.appIngredientsLabel = const [],
     this.appPrepTime = "0.00",
+    this.appMealType = const [],
   });
 
   factory RecipeModel.fromMap(Map<String, dynamic> recipe) {
     int ingredientsCount = (recipe["ingredientLines"] as List).length;
+    List<String> appMealType = (recipe["mealType"] as List<dynamic>).map((e) => e.toString()).toList();
     List<String> ingredientsLabel =
         (recipe["ingredientLines"] as List<dynamic>).map((e) => e.toString()).toList();
     String appCarbs = (recipe["totalNutrients"]["CHOCDF"]["quantity"] as double).toStringAsFixed(2);
@@ -44,6 +47,7 @@ class RecipeModel {
       appIngredients: ingredientsCount,
       appIngredientsLabel: ingredientsLabel,
       appPrepTime: appPrepTime,
+      appMealType: appMealType,
     );
   }
 }

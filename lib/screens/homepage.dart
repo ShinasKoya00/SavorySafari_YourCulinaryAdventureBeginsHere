@@ -27,26 +27,58 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isLoading = true;
-  List<RecipeModel> recipeList = <RecipeModel>[];
+  List<RecipeModel> recipeList1 = <RecipeModel>[];
+  List<RecipeModel> recipeList2 = <RecipeModel>[];
   TextEditingController searchController = TextEditingController();
 
-  Future<void> getRecipe(String query) async {
+  Future<void> getRecipe1(String query1) async {
     try {
       String url =
-          "https://api.edamam.com/api/recipes/v2?type=public&q=$query&app_id=fbf9d0ca&app_key=1d93f048220627e517dec9b9915a937e";
+          "https://api.edamam.com/api/recipes/v2?type=public&q=$query1&app_id=fbf9d0ca&app_key=1d93f048220627e517dec9b9915a937e";
       final response = await get(Uri.parse(url)).timeout(
         const Duration(seconds: 10),
       );
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
-        List<RecipeModel> loadedRecipes = [];
+        List<RecipeModel> loadedRecipes1 = [];
+
         data["hits"].forEach((element) {
-          RecipeModel recipeModel = RecipeModel.fromMap(element["recipe"]);
-          loadedRecipes.add(recipeModel);
+          RecipeModel recipeModel1 = RecipeModel.fromMap(element["recipe"]);
+
+          loadedRecipes1.add(recipeModel1);
         });
         setState(() {
           _isLoading = false;
-          recipeList = loadedRecipes;
+          recipeList1 = loadedRecipes1;
+        });
+        log(data.toString());
+      } else {
+        log('Failed to load recipes: ${response.statusCode}');
+      }
+    } catch (e) {
+      log('Failed to load recipes: $e');
+    }
+  }
+
+  Future<void> getRecipe2(String query2) async {
+    try {
+      String url =
+          "https://api.edamam.com/api/recipes/v2?type=public&q=$query2&app_id=fbf9d0ca&app_key=1d93f048220627e517dec9b9915a937e";
+      final response = await get(Uri.parse(url)).timeout(
+        const Duration(seconds: 10),
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        List<RecipeModel> loadedRecipes2 = [];
+
+        data["hits"].forEach((element) {
+          RecipeModel recipeModel2 = RecipeModel.fromMap(element["recipe"]);
+
+          loadedRecipes2.add(recipeModel2);
+        });
+        setState(() {
+          _isLoading = false;
+          recipeList2 = loadedRecipes2;
         });
         log(data.toString());
       } else {
@@ -60,7 +92,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getRecipe('chicken');
+    getRecipe1('chicken');
+    getRecipe2('ladoo');
   }
 
   void _searchRecipe(String query) {
@@ -150,33 +183,33 @@ class _HomePageState extends State<HomePage> {
               _isLoading
                   ? SizedBox(height: 200, width: width, child: Center(child: CircularProgressIndicator()))
                   : SizedBox(
-                      height: 200,
-                      width: width,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: recipeList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => RecipeCardCustom(
-                          onTap: () {
-                            log("top slider is pressed");
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RecipeDetails(
-                                          recipe: recipeList[index],
-                                        )));
-                          },
-                          width: width,
-                          recipeList: recipeList,
-                          cardImage: recipeList[index].appimgUrl,
-                          cardTitle: recipeList[index].applabel,
-                          calorieCount: recipeList[index].appCalories,
-                          ingredientsCount: recipeList[index].appIngredients,
-                          hoursCount: recipeList[index].appPrepTime,
-                          imageFit: BoxFit.fitWidth,
-                        ),
-                      ),
-                    ),
+                height: 200,
+                width: width,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: recipeList1.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => RecipeCardCustom(
+                    onTap: () {
+                      log("top slider is pressed");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RecipeDetails(
+                                recipe: recipeList1[index],
+                              )));
+                    },
+                    width: width,
+                    recipeList: recipeList1,
+                    cardImage: recipeList1[index].appimgUrl,
+                    cardTitle: recipeList1[index].applabel,
+                    calorieCount: recipeList1[index].appCalories,
+                    ingredientsCount: recipeList1[index].appIngredients,
+                    hoursCount: recipeList1[index].appPrepTime,
+                    imageFit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
               SizedBox(height: 30),
               SizedBox(
                 height: 60,
@@ -212,40 +245,40 @@ class _HomePageState extends State<HomePage> {
               HeaderRow(title: "You might like it", subTitle: "Explore", icon: CupertinoIcons.right_chevron),
               SizedBox(height: 15),
 
-              // below horizontal scroller
+              // bottom horizontal scroller
               _isLoading
                   ? SizedBox(height: 200, width: width, child: Center(child: CircularProgressIndicator()))
                   : SizedBox(
-                      height: 220,
-                      width: width,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: recipeList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => RecipeCardCustom(
-                          onTap: () {
-                            log("bottom slider is pressed");
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RecipeDetails(
-                                          recipe: recipeList[index],
-                                        )));
-                          },
-                          width: 200,
-                          recipeList: recipeList,
-                          cardImage: recipeList[index].appimgUrl,
-                          cardTitle: recipeList[index].applabel,
-                          calorieCount: recipeList[index].appCalories,
-                          ingredientsCount: recipeList[index].appIngredients,
-                          hoursCount: recipeList[index].appPrepTime,
-                          imageFit: BoxFit.fitHeight,
-                          calorieIconSize: 13,
-                          calorieFontSize: 12,
-                          titleTimeLeftPosition: 18,
-                        ),
-                      ),
-                    ),
+                height: 220,
+                width: width,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: recipeList2.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => RecipeCardCustom(
+                    onTap: () {
+                      log("bottom slider is pressed");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RecipeDetails(
+                                recipe: recipeList2[index],
+                              )));
+                    },
+                    width: 200,
+                    recipeList: recipeList2,
+                    cardImage: recipeList2[index].appimgUrl,
+                    cardTitle: recipeList2[index].applabel,
+                    calorieCount: recipeList2[index].appCalories,
+                    ingredientsCount: recipeList2[index].appIngredients,
+                    hoursCount: recipeList2[index].appPrepTime,
+                    imageFit: BoxFit.fitHeight,
+                    calorieIconSize: 13,
+                    calorieFontSize: 12,
+                    titleTimeLeftPosition: 18,
+                  ),
+                ),
+              ),
               SizedBox(height: 30),
               Container(
                 height: 60,

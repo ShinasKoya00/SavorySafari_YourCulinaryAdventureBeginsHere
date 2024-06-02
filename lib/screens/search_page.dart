@@ -5,9 +5,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:savory_safari/models/recipe_model.dart';
-import 'package:savory_safari/screens/onboarding_page.dart';
+import 'package:savory_safari/screens/recipe_details.dart';
 import 'package:savory_safari/utils/colors.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
+import 'package:savory_safari/widgets/my_text.dart';
 import 'package:savory_safari/widgets/time_and_ingredients_text.dart';
 
 class SearchPage extends StatefulWidget {
@@ -169,7 +170,15 @@ class _SearchPageState extends State<SearchPage> {
                     itemCount: recipeList.length,
                     padding: EdgeInsets.zero,
                     itemBuilder: (context, index) => ContainerShadowBox(
-                      onTap: () {},
+                      onTap: () {
+                        log("search box pressed");
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RecipeDetails(
+                                      recipe: recipeList[index],
+                                    )));
+                      },
                       height: 120,
                       width: width,
                       margin: const EdgeInsets.only(bottom: 20),
@@ -229,156 +238,6 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-
-      // body: Stack(
-      //   children: [
-      //     Container(
-      //       height: height,
-      //       width: width,
-      //       decoration: BoxDecoration(
-      //         gradient: LinearGradient(
-      //           colors: [
-      //             Colors.deepPurple.shade100,
-      //             Colors.deepPurple.shade500,
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //     SafeArea(
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(20.0),
-      //         child: SingleChildScrollView(
-      //           child: Column(
-      //             children: [
-      //               Container(
-      //                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      //                 decoration: BoxDecoration(
-      //                   color: Colors.white,
-      //                   borderRadius: BorderRadius.circular(20),
-      //                 ),
-      //                 child: Row(
-      //                   children: [
-      //                     GestureDetector(
-      //                       onTap: _searchRecipe,
-      //                       child: const Padding(
-      //                         padding: EdgeInsets.fromLTRB(3, 0, 7, 0),
-      //                         child: Icon(
-      //                           Icons.search,
-      //                           color: Colors.blueAccent,
-      //                         ),
-      //                       ),
-      //                     ),
-      //                     Expanded(
-      //                       child: TextField(
-      //                         controller: searchController,
-      //                         decoration: const InputDecoration(
-      //                           border: InputBorder.none,
-      //                           hintText: "Let's cook something",
-      //                         ),
-      //                         onSubmitted: (value) {
-      //                           _searchRecipe();
-      //                         },
-      //                       ),
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ),
-      //               const SizedBox(height: 30),
-      //               Text("Your result for ${widget.query} is ready"),
-      //               const SizedBox(height: 20),
-      //               _isLoading
-      //                   ? const CircularProgressIndicator()
-      //                   : ListView.builder(
-      //                       physics: const NeverScrollableScrollPhysics(),
-      //                       shrinkWrap: true,
-      //                       itemCount: recipeList.length,
-      //                       itemBuilder: (context, index) {
-      //                         return InkWell(
-      //                           onTap: () {
-      //                             log("card [$index] clicked");
-      //                           },
-      //                           child: Card(
-      //                             shape: RoundedRectangleBorder(
-      //                               borderRadius: BorderRadius.circular(15),
-      //                             ),
-      //                             margin: const EdgeInsets.only(top: 20),
-      //                             child: Stack(
-      //                               children: [
-      //                                 ClipRRect(
-      //                                   borderRadius: BorderRadius.circular(15),
-      //                                   child: Image.network(
-      //                                     recipeList[index].appimgUrl,
-      //                                     fit: BoxFit.fitWidth,
-      //                                     height: 220,
-      //                                     width: width,
-      //                                   ),
-      //                                 ),
-      //                                 Positioned(
-      //                                   left: 0,
-      //                                   bottom: 0,
-      //                                   right: 0,
-      //                                   child: Container(
-      //                                     padding: const EdgeInsets.all(10),
-      //                                     decoration: const BoxDecoration(
-      //                                       color: Colors.black38,
-      //                                       borderRadius: BorderRadius.only(
-      //                                         bottomLeft: Radius.circular(15),
-      //                                         bottomRight: Radius.circular(15),
-      //                                       ),
-      //                                     ),
-      //                                     child: Text(
-      //                                       recipeList[index].applabel,
-      //                                       style: const TextStyle(
-      //                                         color: Colors.white,
-      //                                         fontSize: 16,
-      //                                       ),
-      //                                     ),
-      //                                   ),
-      //                                 ),
-      //                                 Positioned(
-      //                                   top: 0,
-      //                                   right: 0,
-      //                                   height: 30,
-      //                                   width: 80,
-      //                                   child: Container(
-      //                                     alignment: Alignment.centerLeft,
-      //                                     decoration: const BoxDecoration(
-      //                                       color: Colors.white,
-      //                                       borderRadius: BorderRadius.only(
-      //                                         topRight: Radius.circular(15),
-      //                                         bottomLeft: Radius.circular(15),
-      //                                       ),
-      //                                     ),
-      //                                     child: Row(
-      //                                       mainAxisAlignment: MainAxisAlignment.center,
-      //                                       crossAxisAlignment: CrossAxisAlignment.center,
-      //                                       children: [
-      //                                         const Icon(
-      //                                           Icons.local_fire_department,
-      //                                           size: 18,
-      //                                         ),
-      //                                         const SizedBox(width: 3),
-      //                                         Text(
-      //                                           recipeList[index].appCalories.toStringAsFixed(2),
-      //                                           style: const TextStyle(fontWeight: FontWeight.bold),
-      //                                         ),
-      //                                       ],
-      //                                     ),
-      //                                   ),
-      //                                 ),
-      //                               ],
-      //                             ),
-      //                           ),
-      //                         );
-      //                       },
-      //                     ),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

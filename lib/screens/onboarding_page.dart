@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savory_safari/screens/homepage.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/widgets/my_text.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -52,7 +53,8 @@ class OnboardingPage extends StatelessWidget {
               ),
               child: InkWell(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (context) => const HomePage()));
                   },
                   child: const MyText(text: "Get Started", color: MyColors.grey)),
             ),
@@ -60,36 +62,6 @@ class OnboardingPage extends StatelessWidget {
               height: 70,
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class MyText extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final FontWeight fontWeight;
-  final Color color;
-
-  const MyText({
-    super.key,
-    required this.text,
-    this.fontSize = 22,
-    this.fontWeight = FontWeight.w400,
-    this.color = Colors.black,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          color: color,
         ),
       ),
     );

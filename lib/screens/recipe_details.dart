@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/widgets/calorie_carb_pro_fat.dart';
 
 import '../models/recipe_model.dart';
 import '../widgets/container_shadow_box.dart';
@@ -59,7 +60,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
     getRecipe("ladoo");
     _toggleButton(true);
   }
-
 
   void _toggleButton(bool isIngredient) {
     setState(() {
@@ -179,16 +179,16 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                           Text(widget.recipe.appPrepTime,
                                               style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
                                           const SizedBox(width: 3),
-                                          Text("min",
+                                          Text("hours",
                                               style: TextStyle(fontSize: 17, color: Colors.grey.shade600))
                                         ],
                                       ),
                                       const SizedBox(width: 30),
                                       Row(
                                         children: [
-                                          const Icon(CupertinoIcons.heart, size: 18),
+                                          const Icon(Icons.restaurant_menu, size: 18),
                                           const SizedBox(width: 5),
-                                          Text("256",
+                                          Text(widget.recipe.appMealType[0],
                                               style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
                                         ],
                                       ),
@@ -229,20 +229,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                   ),
                                 ),
                                 const SizedBox(height: 30),
-                                // Flexible(
-                                //   child: Container(
-                                //     color: Colors.red.withOpacity(0.5),
-                                //     width: width,
-                                //     child: Text(
-                                //       "akjndasjk askndasjk askjas xcjk asjk ass jk askjas xcjk asjk ass xckasassdfdasfndasjk aikaxckasassdfdasfndasjk aikasjkas asiojcas cxasjckndasjk askjakas kndasjk aikasjkas asiojcas cxasjckndasjk askja c, djasoid xcikasjkas asiojcas cxasjckasc, djasoid xcikasjkas asiojcas cxasjc",
-                                //       overflow: TextOverflow.ellipsis,
-                                //       maxLines: 6,
-                                //       textAlign: TextAlign.center,
-                                //       style: TextStyle(fontSize: 16),
-                                //     ),
-                                //   ),
-                                // ),
-
                                 ButtonBar(
                                   alignment: MainAxisAlignment.center,
                                   children: [
@@ -313,40 +299,5 @@ class _RecipeDetailsState extends State<RecipeDetails> {
             ],
           ),
         ));
-  }
-}
-
-class CalorieCarbProteinFat extends StatelessWidget {
-  final String header;
-  final String value;
-
-  const CalorieCarbProteinFat({
-    super.key,
-    required this.header,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          header,
-          style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 17,
-            color: Colors.grey.shade600,
-          ),
-        ),
-      ],
-    );
   }
 }
