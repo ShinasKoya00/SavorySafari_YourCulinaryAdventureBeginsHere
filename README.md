@@ -11,9 +11,25 @@ SavorySafari is your ultimate culinary adventure app! Discover a plethora of del
 - **Beautiful UI**: Enjoy a user-friendly interface with rich visuals and seamless navigation.
 
 ## Screenshots
+- Onboarding Page
+  
+  <img src="https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/blob/master/assets/application_snapshots/onboarding_page.jpg" width="200" />
 
-Onboarding Page 
-![onboarding_page](https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/assets/136962350/edf4f194-777d-41f6-b6f3-d41e340abd78)
+- Home Page
+  
+  <img src="https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/blob/master/assets/application_snapshots/home_page.jpg" width="200" />
+
+- Search Page
+  
+  <img src="https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/blob/master/assets/application_snapshots/search_page.jpg" width="200" />
+
+- Detail Page / Ingredients List
+  
+  <img src="https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/blob/master/assets/application_snapshots/details_ingredients.jpg" width="200" />
+  
+- Detail Page / Steps
+  
+  <img src="https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/blob/master/assets/application_snapshots/details_steps.jpg" width="200" />
 
 ## Usage
 
