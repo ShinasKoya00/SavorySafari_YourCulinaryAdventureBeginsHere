@@ -27,6 +27,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isLoading = true;
+  bool _isBookMarked = false;
   List<RecipeModel> recipeList1 = <RecipeModel>[];
   List<RecipeModel> recipeList2 = <RecipeModel>[];
   TextEditingController searchController = TextEditingController();
@@ -88,6 +89,8 @@ class _HomePageState extends State<HomePage> {
       log('Failed to load recipes: $e');
     }
   }
+
+
 
   @override
   void initState() {
@@ -183,33 +186,33 @@ class _HomePageState extends State<HomePage> {
               _isLoading
                   ? SizedBox(height: 200, width: width, child: Center(child: CircularProgressIndicator()))
                   : SizedBox(
-                height: 200,
-                width: width,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: recipeList1.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => RecipeCardCustom(
-                    onTap: () {
-                      log("top slider is pressed");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RecipeDetails(
-                                recipe: recipeList1[index],
-                              )));
-                    },
-                    width: width,
-                    recipeList: recipeList1,
-                    cardImage: recipeList1[index].appimgUrl,
-                    cardTitle: recipeList1[index].applabel,
-                    calorieCount: recipeList1[index].appCalories,
-                    ingredientsCount: recipeList1[index].appIngredients,
-                    hoursCount: recipeList1[index].appPrepTime,
-                    imageFit: BoxFit.fitWidth,
-                  ),
-                ),
-              ),
+                      height: 200,
+                      width: width,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: recipeList1.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => RecipeCardCustom(
+                          onTap: () {
+                            log("top slider is pressed");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecipeDetails(
+                                          recipe: recipeList1[index],
+                                        )));
+                          },
+                          width: width,
+                          recipeList: recipeList1,
+                          cardImage: recipeList1[index].appimgUrl,
+                          cardTitle: recipeList1[index].applabel,
+                          calorieCount: recipeList1[index].appCalories,
+                          ingredientsCount: recipeList1[index].appIngredients,
+                          hoursCount: recipeList1[index].appPrepTime,
+                          imageFit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
               SizedBox(height: 30),
               SizedBox(
                 height: 60,
@@ -249,36 +252,36 @@ class _HomePageState extends State<HomePage> {
               _isLoading
                   ? SizedBox(height: 200, width: width, child: Center(child: CircularProgressIndicator()))
                   : SizedBox(
-                height: 220,
-                width: width,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: recipeList2.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => RecipeCardCustom(
-                    onTap: () {
-                      log("bottom slider is pressed");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RecipeDetails(
-                                recipe: recipeList2[index],
-                              )));
-                    },
-                    width: 200,
-                    recipeList: recipeList2,
-                    cardImage: recipeList2[index].appimgUrl,
-                    cardTitle: recipeList2[index].applabel,
-                    calorieCount: recipeList2[index].appCalories,
-                    ingredientsCount: recipeList2[index].appIngredients,
-                    hoursCount: recipeList2[index].appPrepTime,
-                    imageFit: BoxFit.fitHeight,
-                    calorieIconSize: 13,
-                    calorieFontSize: 12,
-                    titleTimeLeftPosition: 18,
-                  ),
-                ),
-              ),
+                      height: 220,
+                      width: width,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: recipeList2.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => RecipeCardCustom(
+                          onTap: () {
+                            log("bottom slider is pressed");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecipeDetails(
+                                          recipe: recipeList2[index],
+                                        )));
+                          },
+                          width: 200,
+                          recipeList: recipeList2,
+                          cardImage: recipeList2[index].appimgUrl,
+                          cardTitle: recipeList2[index].applabel,
+                          calorieCount: recipeList2[index].appCalories,
+                          ingredientsCount: recipeList2[index].appIngredients,
+                          hoursCount: recipeList2[index].appPrepTime,
+                          imageFit: BoxFit.fitHeight,
+                          calorieIconSize: 13,
+                          calorieFontSize: 12,
+                          titleTimeLeftPosition: 18,
+                        ),
+                      ),
+                    ),
               SizedBox(height: 30),
               Container(
                 height: 60,
@@ -314,12 +317,20 @@ class _HomePageState extends State<HomePage> {
                   // activeColor: MyColors.bottomNavBottomBlack,
 
                   tabBackgroundColor: MyColors.bottomNavGreenishYellow,
-                  tabs: const [
+                  tabs: [
                     GButton(
                       icon: CupertinoIcons.compass,
                     ),
                     GButton(
                       icon: CupertinoIcons.search_circle,
+                      // onPressed: () {
+                      //   log("Bottom Navigation is pressed");
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           SearchPage(query:),),);
+                      // },
                     ),
                     GButton(
                       icon: CupertinoIcons.bookmark,
