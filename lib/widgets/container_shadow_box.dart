@@ -6,11 +6,13 @@ class ContainerShadowBox extends StatelessWidget {
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final Color color;
+  final Color boxShadowColor;
   final Color textColor;
   final BorderRadius? borderRadius;
   final String? imageAsset;
   final String? imageNetwork;
   final String? text;
+  final double? textSize;
   final Widget? child;
   final VoidCallback? onTap;
 
@@ -21,11 +23,13 @@ class ContainerShadowBox extends StatelessWidget {
     this.margin,
     this.padding,
     this.color = Colors.white,
+    this.boxShadowColor = Colors.grey,
     this.textColor = Colors.black,
     this.borderRadius,
     this.imageAsset,
     this.imageNetwork,
     this.text,
+    this.textSize = 14,
     this.child,
     this.onTap,
   });
@@ -43,7 +47,7 @@ class ContainerShadowBox extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade400,
+              color: boxShadowColor,
               offset: const Offset(0.0, 10.0),
               blurRadius: 10.0,
               spreadRadius: -5.0,
@@ -64,7 +68,7 @@ class ContainerShadowBox extends StatelessWidget {
                 : text != null
                     ? Text(
                         text!,
-                        style: TextStyle(color: textColor),
+                        style: TextStyle(color: textColor, fontSize: textSize),
                       )
                     : child,
       ),

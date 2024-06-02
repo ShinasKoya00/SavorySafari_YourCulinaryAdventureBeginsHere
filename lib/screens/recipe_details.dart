@@ -5,9 +5,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:savory_safari/screens/recipe_content_page.dart';
 import 'package:savory_safari/utils/colors.dart';
-import 'package:savory_safari/widgets/calorie_carb_pro_fat.dart';
 import 'package:savory_safari/widgets/hours_dinetype_container.dart';
 import 'package:savory_safari/widgets/ingredient_steps_toggle.dart';
 import 'package:savory_safari/widgets/total_nutrients_container.dart';
@@ -28,8 +26,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
   bool _isLoading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
   TextEditingController searchController = TextEditingController();
-  bool _isIngredientSelected = true;
-  int? _stackIndex;
 
   Future<void> getRecipe(String query) async {
     try {
@@ -61,20 +57,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
   @override
   void initState() {
     super.initState();
-    getRecipe("ladoo");
-    _ingredientStepsToggleButton(true);
-  }
-
-  void _ingredientStepsToggleButton(bool isIngredient) {
-    setState(() {
-      _isIngredientSelected = isIngredient;
-    });
-  }
-
-  _changeStackIndex(int index) {
-    setState(() {
-      _stackIndex = index;
-    });
+    getRecipe("salad");
   }
 
   @override

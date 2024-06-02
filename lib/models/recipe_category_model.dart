@@ -6,16 +6,13 @@ List recipeCategoryList = [
     "heading": "Drinks",
   },
   {
-    "heading": "Salad",
+    "heading": "Sweets",
   },
   {
     "heading": "Soup",
   },
   {
     "heading": "Dinner",
-  },
-  {
-    "heading": "Sweets",
   },
   {
     "heading": "Sauce",
@@ -28,5 +25,8 @@ List recipeCategoryList = [
   },
   {
     "heading": "Chicken",
+  },
+  {
+    "heading": "Blue Salad",
   },
 ];

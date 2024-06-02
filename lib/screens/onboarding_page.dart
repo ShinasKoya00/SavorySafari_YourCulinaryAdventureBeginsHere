@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savory_safari/screens/homepage.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/my_text.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -37,27 +38,20 @@ class OnboardingPage extends StatelessWidget {
             const MyText(
                 text: "Is a Piece of Cake!", fontSize: 25, fontWeight: FontWeight.w100, color: MyColors.grey),
             const SizedBox(height: 40),
-            Container(
-              height: 60,
-              width: 190,
-              decoration: BoxDecoration(
-                color: MyColors.darkGreen,
+
+            ContainerShadowBox(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context) => const HomePage()));
+                },
+                height: 60,
+                width: 190,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(0.0, 10.0),
-                    blurRadius: 10.0,
-                    spreadRadius: -6.0,
-                  ),
-                ],
-              ),
-              child: InkWell(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => const HomePage()));
-                  },
-                  child: const MyText(text: "Get Started", color: MyColors.grey)),
-            ),
+                color: MyColors.darkGreen,
+                boxShadowColor: Colors.black,
+                text: "Get Started",
+                textSize: 18,
+                textColor: MyColors.grey),
             const SizedBox(
               height: 70,
             )
