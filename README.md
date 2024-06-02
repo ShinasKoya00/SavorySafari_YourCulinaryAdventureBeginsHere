@@ -12,7 +12,8 @@ SavorySafari is your ultimate culinary adventure app! Discover a plethora of del
 
 ## Screenshots
 
-*Include some screenshots of your app here to give users a visual idea of what to expect.*
+Onboarding Page 
+![onboarding_page](https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/assets/136962350/edf4f194-777d-41f6-b6f3-d41e340abd78)
 
 ## Usage
 
