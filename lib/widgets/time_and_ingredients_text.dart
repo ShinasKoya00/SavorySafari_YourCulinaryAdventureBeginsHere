@@ -37,7 +37,7 @@ class TimeAndIngredientsText extends StatelessWidget {
               width: 5,
             ),
             Text(
-              "ingrediants",
+              "ingredients",
               style: TextStyle(
                 color: fontColor,
                 fontSize: fontSize,

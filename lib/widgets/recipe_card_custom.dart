@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:savory_safari/models/recipe_model.dart';
-import 'package:savory_safari/utils/colors.dart';
-import 'package:savory_safari/widgets/bookMarkState.dart';
-import 'package:savory_safari/widgets/container_shadow_box.dart';
+import 'package:savory_safari/widgets/bookmark_state.dart';
 import 'package:savory_safari/widgets/time_and_ingredients_text.dart';
 
 class RecipeCardCustom extends StatefulWidget {
@@ -125,10 +122,10 @@ class _RecipeCardCustomState extends State<RecipeCardCustom> {
             ),
 
             // bookmark section
-            Positioned(
+            const Positioned(
               right: 8,
               top: 15,
-              child: Bookmarkstate(),
+              child: BookmarkState(),
             ),
 
             // recipe card title and ingredients and time required

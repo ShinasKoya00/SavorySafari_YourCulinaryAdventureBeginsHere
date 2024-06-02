@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+
 import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/screens/recipe_content_page.dart';
 import 'package:savory_safari/utils/colors.dart';
@@ -106,11 +105,11 @@ class _IngredientsAndStepToggleContainerState extends State<IngredientsAndStepTo
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "For the Detailed recipe,",
                         style: TextStyle(fontSize: 17),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       ContainerShadowBox(
                         onTap: () {
                           Navigator.push(

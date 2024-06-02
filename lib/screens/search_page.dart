@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/screens/recipe_details.dart';
 import 'package:savory_safari/utils/colors.dart';
-import 'package:savory_safari/widgets/bookMarkState.dart';
+import 'package:savory_safari/widgets/bookmark_state.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/my_text.dart';
 import 'package:savory_safari/widgets/time_and_ingredients_text.dart';
@@ -22,9 +22,10 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  bool _isLoading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
   TextEditingController searchController = TextEditingController();
+  bool isLoading = true;
+  bool hasError = false;
 
   Future<void> getRecipe(String query) async {
     try {
@@ -41,14 +42,23 @@ class _SearchPageState extends State<SearchPage> {
           loadedRecipes.add(recipeModel);
         });
         setState(() {
-          _isLoading = false;
           recipeList = loadedRecipes;
+          isLoading = false;
+          hasError = recipeList.isEmpty;
         });
         log(data.toString());
       } else {
+        setState(() {
+          hasError = true;
+          isLoading = false;
+        });
         log('Failed to load recipes: ${response.statusCode}');
       }
     } catch (e) {
+      setState(() {
+        hasError = true;
+        isLoading = false;
+      });
       log('Failed to load recipes: $e');
     }
   }
@@ -146,88 +156,98 @@ class _SearchPageState extends State<SearchPage> {
                 height: 20,
               ),
               Expanded(
-                child: SizedBox(
-                  width: width,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: recipeList.length,
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) => ContainerShadowBox(
-                      onTap: () {
-                        log("search box pressed");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RecipeDetails(
-                                      recipe: recipeList[index],
-                                    )));
-                      },
-                      height: 120,
-                      width: width,
-                      margin: const EdgeInsets.only(bottom: 20),
-                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
-                      borderRadius: BorderRadius.circular(25),
-                      color: Colors.white,
-                      child: Row(
-                        children: [
-                          ContainerShadowBox(
-                            width: 90,
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(13),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(13),
-                              child: Image.network(
-                                recipeList[index].appimgUrl,
-                                fit: BoxFit.fitWidth,
+                child: isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : hasError
+                        ? const Center(
+                            child: Text(
+                              "No recipes found for your search.",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 18,
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: recipeList.length,
+                            padding: EdgeInsets.zero,
+                            itemBuilder: (context, index) => ContainerShadowBox(
+                              onTap: () {
+                                log("search box pressed");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => RecipeDetails(
+                                              recipe: recipeList[index],
+                                            )));
+                              },
+                              height: 120,
+                              width: width,
+                              margin: const EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+                              borderRadius: BorderRadius.circular(25),
+                              color: Colors.white,
+                              child: Row(
+                                children: [
+                                  ContainerShadowBox(
+                                    width: 90,
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(13),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(13),
+                                      child: Image.network(
+                                        recipeList[index].appimgUrl,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 25,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: width - 200,
+                                        child: Text(
+                                          recipeList[index].applabel,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 7,
+                                      ),
+                                      SizedBox(
+                                        width: width - 200,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            TimeAndIngredientsText(
+                                              ingredientsCount: recipeList[index].appIngredients,
+                                              hoursCount: recipeList[index].appPrepTime,
+                                              fontColor: Colors.grey.shade600,
+                                              fontColorBold: Colors.grey.shade800,
+                                              fontSize: 15,
+                                              heightBetweenRows: 4,
+                                            ),
+                                            const BookmarkState(
+                                              color: Colors.black,
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 25,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width - 200,
-                                child: Text(
-                                  recipeList[index].applabel,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 7,
-                              ),
-                              SizedBox(
-                                width: width - 200,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    TimeAndIngredientsText(
-                                      ingredientsCount: recipeList[index].appIngredients,
-                                      hoursCount: recipeList[index].appPrepTime,
-                                      fontColor: Colors.grey.shade600,
-                                      fontColorBold: Colors.grey.shade800,
-                                      fontSize: 15,
-                                      heightBetweenRows: 4,
-                                    ),
-                                    Bookmarkstate(
-
-                                      color: Colors.black,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               )
             ],
           ),

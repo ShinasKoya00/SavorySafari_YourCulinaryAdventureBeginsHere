@@ -5,13 +5,14 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/hours_dinetype_container.dart';
 import 'package:savory_safari/widgets/ingredient_steps_toggle.dart';
 import 'package:savory_safari/widgets/total_nutrients_container.dart';
 
-import '../models/recipe_model.dart';
-import '../widgets/container_shadow_box.dart';
+
 
 class RecipeDetails extends StatefulWidget {
   final RecipeModel recipe;

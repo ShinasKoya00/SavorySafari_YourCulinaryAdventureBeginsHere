@@ -28,7 +28,7 @@ class _RecipeContentPageState extends State<RecipeContentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("WebView"),
+        title: const Text("WebView"),
       ),
       body: WebViewWidget(
         controller: webViewController,

@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:savory_safari/utils/colors.dart';
 
-class Bookmarkstate extends StatefulWidget {
+class BookmarkState extends StatefulWidget {
   final double height;
   final double width;
   final Color color;
 
-  const Bookmarkstate({
+  const BookmarkState({
     super.key,
     this.height = 40,
     this.width = 40,
@@ -15,10 +15,10 @@ class Bookmarkstate extends StatefulWidget {
   });
 
   @override
-  State<Bookmarkstate> createState() => _BookmarkstateState();
+  State<BookmarkState> createState() => _BookmarkStateState();
 }
 
-class _BookmarkstateState extends State<Bookmarkstate> {
+class _BookmarkStateState extends State<BookmarkState> {
   bool _isBookMarked = true;
 
   @override
@@ -38,7 +38,7 @@ class _BookmarkstateState extends State<Bookmarkstate> {
                 size: 22,
                 color: widget.color,
               )
-            : Icon(
+            : const Icon(
                 CupertinoIcons.bookmark_fill,
                 size: 22,
                 color: MyColors.bottomNavGreenishYellow,

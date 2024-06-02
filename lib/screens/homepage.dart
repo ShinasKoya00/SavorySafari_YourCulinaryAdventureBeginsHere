@@ -6,18 +6,16 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart';
 import 'package:savory_safari/models/recipe_category_model.dart';
+import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/screens/recipe_details.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/custom_bottom_nav_bar.dart';
 import 'package:savory_safari/widgets/header_row.dart';
 import 'package:savory_safari/widgets/recipe_card_custom.dart';
 import 'package:savory_safari/screens/search_page.dart';
-
-import '../models/recipe_model.dart';
-import '../widgets/container_shadow_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
