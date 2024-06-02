@@ -31,6 +31,10 @@ SavorySafari is your ultimate culinary adventure app! Discover a plethora of del
   
   <img src="https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/blob/master/assets/application_snapshots/details_steps.jpg" width="200" />
 
+- Recipe
+  
+  <img src="https://github.com/ShinasKoya00/SavorySafari_YourCulinaryAdventureBeginsHere/blob/master/assets/application_snapshots/webview_page.jpg" width="200" />
+
 ## Usage
 
 ### Searching a Recipe
