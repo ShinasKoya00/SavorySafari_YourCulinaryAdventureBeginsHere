@@ -49,7 +49,11 @@ SavorySafari is your ultimate culinary adventure app! Discover a plethora of del
 
 SavorySafari uses the following dependencies:
 
-- `http`: For making API requests to fetch recipe data.
+- flutter: For building the app's UI.
+  
+- http: For making API requests to fetch recipe data.
+  
+- webview_flutter: For displaying web content within the app.
 
 ## Contributing
 
