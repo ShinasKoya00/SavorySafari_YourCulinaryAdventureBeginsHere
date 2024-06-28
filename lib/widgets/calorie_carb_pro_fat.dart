@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 
 class CalorieCarbProteinFat extends StatelessWidget {
   final String header;
@@ -12,21 +13,23 @@ class CalorieCarbProteinFat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context); // Initialize SizeConfig
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           header,
-          style: const TextStyle(
-            fontSize: 17,
+          style: TextStyle(
+            fontSize: SizeConfig.getFontSize(17), // Dynamic font size
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: SizeConfig.getHeight(10)), // Dynamic spacing
         Text(
           value,
           style: TextStyle(
-            fontSize: 17,
+            fontSize: SizeConfig.getFontSize(17), // Dynamic font size
             color: Colors.grey.shade600,
           ),
         ),

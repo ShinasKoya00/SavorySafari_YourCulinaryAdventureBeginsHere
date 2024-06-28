@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 
 class ContainerShadowBox extends StatelessWidget {
   final double? height;
@@ -13,6 +14,7 @@ class ContainerShadowBox extends StatelessWidget {
   final String? imageNetwork;
   final String? text;
   final double? textSize;
+  final double? iconSize; // Add icon size
   final Widget? child;
   final VoidCallback? onTap;
 
@@ -30,12 +32,15 @@ class ContainerShadowBox extends StatelessWidget {
     this.imageNetwork,
     this.text,
     this.textSize = 14,
+    this.iconSize = 22, // Default icon size
     this.child,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context); // Initialize SizeConfig
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -54,12 +59,13 @@ class ContainerShadowBox extends StatelessWidget {
             ),
           ],
           color: color,
-          borderRadius: borderRadius,
+          borderRadius:
+              borderRadius ?? BorderRadius.circular(SizeConfig.getWidth(12)), // Dynamic border radius
         ),
         child: imageAsset != null
             ? Image.asset(
                 imageAsset!,
-                scale: 5.5,
+                scale: SizeConfig.getWidth(5.5), // Dynamic image scale
               )
             : imageNetwork != null
                 ? Image.network(

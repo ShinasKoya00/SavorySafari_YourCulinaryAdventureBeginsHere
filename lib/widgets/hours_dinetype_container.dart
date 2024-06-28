@@ -1,42 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:savory_safari/screens/recipe_details.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 
 class HoursDineTypeContainer extends StatelessWidget {
   const HoursDineTypeContainer({
     super.key,
     required this.width,
-    required this.widget,
+    required this.recipe,
   });
 
   final double width;
-  final RecipeDetails widget;
+  final RecipeDetails recipe;
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context); // Initialize SizeConfig
+
     return SizedBox(
-      height: 30,
+      height: SizeConfig.getHeight(20), // Dynamic height
       width: width,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             children: [
               const Icon(Icons.watch_later_outlined, size: 18),
-              const SizedBox(width: 5),
-              Text(widget.recipe.appPrepTime,
-                  style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
-              const SizedBox(width: 3),
-              Text("hours",
-                  style: TextStyle(fontSize: 17, color: Colors.grey.shade600))
+              SizedBox(width: SizeConfig.getWidth(2)), // Dynamic spacing
+              Text(
+                recipe.recipe.appPrepTime,
+                style: TextStyle(
+                  fontSize: SizeConfig.getFontSize(14), // Dynamic font size
+                  color: Colors.grey.shade600,
+                ),
+              ),
+              SizedBox(width: SizeConfig.getWidth(1)), // Dynamic spacing
+              Text(
+                "hours",
+                style: TextStyle(
+                  fontSize: SizeConfig.getFontSize(14), // Dynamic font size
+                  color: Colors.grey.shade600,
+                ),
+              )
             ],
           ),
-          const SizedBox(width: 30),
+          SizedBox(width: SizeConfig.getWidth(6)), // Dynamic spacing
           Row(
             children: [
               const Icon(Icons.restaurant_menu, size: 18),
-              const SizedBox(width: 5),
-              Text(widget.recipe.appMealType[0],
-                  style: TextStyle(fontSize: 17, color: Colors.grey.shade600)),
+              SizedBox(width: SizeConfig.getWidth(2)), // Dynamic spacing
+              Text(
+                recipe.recipe.appMealType[0],
+                style: TextStyle(
+                  fontSize: SizeConfig.getFontSize(14), // Dynamic font size
+                  color: Colors.grey.shade600,
+                ),
+              ),
             ],
           ),
         ],

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -10,12 +8,14 @@ import 'package:http/http.dart';
 import 'package:savory_safari/models/recipe_category_model.dart';
 import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/screens/recipe_details.dart';
+import 'package:savory_safari/screens/search_page.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/custom_bottom_nav_bar.dart';
 import 'package:savory_safari/widgets/header_row.dart';
 import 'package:savory_safari/widgets/recipe_card_custom.dart';
-import 'package:savory_safari/screens/search_page.dart';
+// Import SizeConfig
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -91,6 +91,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    // Initialize SizeConfig
     getRecipe1('Indian chicken grill');
     getRecipe2("salad");
   }
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
         MaterialPageRoute(builder: (context) => SearchPage(query: query)),
       );
 
-      Timer(Duration(seconds: 10), () {
+      Timer(const Duration(seconds: 10), () {
         searchController.clear();
       });
     }
@@ -114,15 +115,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    SizeConfig.init(context);
+    final height = SizeConfig.screenHeight;
+    final width = SizeConfig.screenWidth;
 
     return Scaffold(
       backgroundColor: MyColors.homePageGrey,
       body: SingleChildScrollView(
         child: Container(
           height: height,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
+          margin: EdgeInsets.symmetric(horizontal: SizeConfig.getHeight(15)),
           width: width,
           child: Column(
             children: [
@@ -130,59 +132,64 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 15),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 55,
-                      width: width * 0.725,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: searchController,
-                              decoration: InputDecoration(
-                                hintText: "Let's cook something...",
-                                hintStyle: TextStyle(color: Colors.grey.shade400),
-                                border: InputBorder.none,
+                    Expanded(
+                      child: Container(
+                        margin:
+                            EdgeInsets.only(top: SizeConfig.getHeight(15), right: SizeConfig.getWidth(12)),
+                        padding: EdgeInsets.symmetric(horizontal: SizeConfig.getWidth(12)),
+                        height: SizeConfig.getHeight(55),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(SizeConfig.getRadius(18)),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: searchController,
+                                decoration: InputDecoration(
+                                  hintText: "Let's cook something...",
+                                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                                  border: InputBorder.none,
+                                ),
+                                onSubmitted: (inputValue) {
+                                  _searchRecipe(inputValue);
+                                },
                               ),
-                              onSubmitted: (inputValue) {
-                                _searchRecipe(inputValue);
-                              },
                             ),
-                          ),
-                          Icon(
-                            Icons.camera_alt_outlined,
-                            size: 22,
-                            color: Colors.grey.shade700,
-                          ),
-                        ],
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              size: SizeConfig.getIconSize(22),
+                              color: Colors.grey.shade700,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     ContainerShadowBox(
-                      height: 55,
-                      width: 55,
-                      margin: const EdgeInsets.only(top: 15),
-                      borderRadius: BorderRadius.circular(18),
+                      height: SizeConfig.getHeight(55),
+                      width: SizeConfig.getWidth(55),
+                      margin: EdgeInsets.only(top: SizeConfig.getHeight(15)),
+                      borderRadius: BorderRadius.circular(SizeConfig.getRadius(18)),
                       imageAsset: "assets/icons/more_2.png",
                     )
                   ],
                 ),
               ),
-              const SizedBox(height: 25),
+              SizedBox(height: SizeConfig.getHeight(25)),
               const HeaderRow(
                 title: "Staff Picks",
                 subTitle: "View all",
                 icon: CupertinoIcons.chevron_down,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: SizeConfig.getHeight(20)),
               _isLoading
-                  ? SizedBox(height: 200, width: width, child: Center(child: CircularProgressIndicator()))
+                  ? SizedBox(
+                      height: SizeConfig.getHeight(200),
+                      width: width,
+                      child: const Center(child: CircularProgressIndicator()))
                   : SizedBox(
-                      height: 200,
+                      height: SizeConfig.getHeight(200),
                       width: width,
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -209,13 +216,13 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-              SizedBox(height: 30),
+              SizedBox(height: SizeConfig.getHeight(30)),
               SizedBox(
-                height: 60,
+                height: SizeConfig.getHeight(60),
                 width: width,
                 child: ListView.builder(
                   padding: EdgeInsets.only(
-                    bottom: 22,
+                    bottom: SizeConfig.getHeight(22),
                   ),
                   itemCount: recipeCategoryList.length,
                   shrinkWrap: true,
@@ -228,27 +235,29 @@ class _HomePageState extends State<HomePage> {
                           MaterialPageRoute(
                               builder: (context) => SearchPage(query: recipeCategoryList[index]["heading"])));
                     },
-                    height: 30,
-                    width: 120,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    margin: const EdgeInsets.only(right: 10),
-                    borderRadius: BorderRadius.circular(5),
+                    padding: EdgeInsets.symmetric(horizontal: SizeConfig.getWidth(20)),
+                    margin: EdgeInsets.only(right: SizeConfig.getWidth(10)),
+                    borderRadius: BorderRadius.circular(SizeConfig.getRadius(5)),
                     child: Text(
                       recipeCategoryList[index]["heading"],
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: SizeConfig.getFontSize(18), fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              HeaderRow(title: "You might like it", subTitle: "Explore", icon: CupertinoIcons.right_chevron),
-              SizedBox(height: 15),
+              SizedBox(height: SizeConfig.getHeight(10)),
+              const HeaderRow(
+                  title: "You might like it", subTitle: "Explore", icon: CupertinoIcons.right_chevron),
+              SizedBox(height: SizeConfig.getHeight(15)),
 
               // bottom horizontal scroller
               _isLoading
-                  ? SizedBox(height: 200, width: width, child: Center(child: CircularProgressIndicator()))
+                  ? SizedBox(
+                      height: SizeConfig.getHeight(200),
+                      width: width,
+                      child: const Center(child: CircularProgressIndicator()))
                   : SizedBox(
-                      height: 220,
+                      height: SizeConfig.getHeight(220),
                       width: width,
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -264,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                                           recipe: recipeList2[index],
                                         )));
                           },
-                          width: 200,
+                          width: SizeConfig.getWidth(200),
                           recipeList: recipeList2,
                           cardImage: recipeList2[index].appimgUrl,
                           cardTitle: recipeList2[index].applabel,
@@ -272,13 +281,13 @@ class _HomePageState extends State<HomePage> {
                           ingredientsCount: recipeList2[index].appIngredients,
                           hoursCount: recipeList2[index].appPrepTime,
                           imageFit: BoxFit.fitHeight,
-                          calorieIconSize: 13,
-                          calorieFontSize: 12,
-                          titleTimeLeftPosition: 18,
+                          calorieIconSize: SizeConfig.getIconSize(13),
+                          calorieFontSize: SizeConfig.getFontSize(12),
+                          titleTimeLeftPosition: SizeConfig.getHeight(18),
                         ),
                       ),
                     ),
-              SizedBox(height: 30),
+              SizedBox(height: SizeConfig.getHeight(30)),
               CustomBottomNavBar(width: width),
             ],
           ),

@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/hours_dinetype_container.dart';
 import 'package:savory_safari/widgets/ingredient_steps_toggle.dart';
 import 'package:savory_safari/widgets/total_nutrients_container.dart';
-
-
 
 class RecipeDetails extends StatefulWidget {
   final RecipeModel recipe;
@@ -63,14 +62,13 @@ class _RecipeDetailsState extends State<RecipeDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    SizeConfig.init(context); // Initialize SizeConfig
 
     return Scaffold(
         backgroundColor: MyColors.homePageGrey,
         body: SizedBox(
-          height: height,
-          width: width,
+          height: SizeConfig.screenHeight,
+          width: SizeConfig.screenWidth,
           child: Stack(
             children: [
               Positioned(
@@ -78,8 +76,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                 left: 0,
                 right: 0,
                 child: Container(
-                  height: width,
-                  width: width,
+                  height: SizeConfig.screenWidth,
+                  width: SizeConfig.screenWidth,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       colorFilter: ColorFilter.mode(
@@ -93,17 +91,20 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                 ),
               ),
               Positioned(
-                top: 60,
-                left: 25,
+                top: SizeConfig.getHeight(60),
+                left: SizeConfig.getWidth(25),
                 child: ContainerShadowBox(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  height: 45,
-                  width: 45,
+                  height: SizeConfig.getHeight(45),
+                  width: SizeConfig.getWidth(45),
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  child: const Icon(CupertinoIcons.left_chevron),
+                  borderRadius: BorderRadius.circular(SizeConfig.getRadius(10)),
+                  child: Icon(
+                    CupertinoIcons.left_chevron,
+                    size: SizeConfig.getIconSize(24),
+                  ),
                 ),
               ),
 
@@ -112,61 +113,68 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
-                  height: height * 0.6,
-                  width: width,
-                  decoration: const BoxDecoration(
+                  padding: EdgeInsets.only(
+                    left: SizeConfig.getWidth(25),
+                    right: SizeConfig.getWidth(25),
+                    top: SizeConfig.getHeight(30),
+                  ),
+                  height: SizeConfig.screenHeight * 0.6,
+                  width: SizeConfig.screenWidth,
+                  decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(SizeConfig.getRadius(40)),
+                      topLeft: Radius.circular(SizeConfig.getRadius(40)),
                     ),
                   ),
                   child: _isLoading
                       ? SizedBox(
-                          height: height * 0.6,
-                          width: width,
+                          height: SizeConfig.screenHeight * 0.6,
+                          width: SizeConfig.screenWidth,
                           child: const Center(
                             child: CircularProgressIndicator(),
                           ),
                         )
                       : SingleChildScrollView(
                           child: SizedBox(
-                            height: height * 0.7,
-                            width: width,
+                            height: SizeConfig.screenHeight * 0.7,
+                            width: SizeConfig.screenWidth,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: SizeConfig.getWidth(10),
+                                  ),
                                   alignment: Alignment.center,
-                                  height: 65,
-                                  width: width,
+                                  height: SizeConfig.getHeight(65),
+                                  width: SizeConfig.screenWidth,
                                   child: Text(
                                     widget.recipe.applabel,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 26,
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.getFontSize(26),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: SizeConfig.getHeight(10)),
                                 HoursDineTypeContainer(
-                                  width: width,
-                                  widget: widget,
+                                  width: SizeConfig.screenWidth,
+                                  recipe: widget,
                                 ),
-                                const SizedBox(height: 15),
+                                SizedBox(height: SizeConfig.getHeight(15)),
                                 TotalNutrientsContainer(
-                                  width: width,
+                                  width: SizeConfig.screenWidth,
                                   recipe: widget.recipe,
                                 ),
-                                const SizedBox(height: 30),
+                                SizedBox(height: SizeConfig.getHeight(30)),
                                 IngredientsAndStepToggleContainer(
                                   recipe: widget.recipe,
-                                  width: width,
-                                )
+                                  width: SizeConfig.screenWidth,
+                                ),
                               ],
                             ),
                           ),

@@ -1,12 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:savory_safari/models/recipe_model.dart';
 import 'package:savory_safari/screens/recipe_details.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 import 'package:savory_safari/widgets/bookmark_state.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/my_text.dart';
@@ -87,16 +88,15 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    SizeConfig.init(context); // Initialize SizeConfig
 
     return Scaffold(
       backgroundColor: MyColors.homePageGrey,
       body: SingleChildScrollView(
         child: Container(
-          height: height,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          width: width,
+          height: SizeConfig.screenHeight,
+          margin: EdgeInsets.symmetric(horizontal: SizeConfig.getWidth(20)),
+          width: SizeConfig.screenWidth,
           child: Column(
             children: [
               SafeArea(
@@ -104,13 +104,13 @@ class _SearchPageState extends State<SearchPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(top: 15),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 55,
-                      width: width * 0.725,
+                      margin: EdgeInsets.only(top: SizeConfig.getHeight(15)),
+                      padding: EdgeInsets.symmetric(horizontal: SizeConfig.getWidth(12)),
+                      height: SizeConfig.getHeight(55),
+                      width: SizeConfig.screenWidth * 0.725,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(SizeConfig.getRadius(18)),
                       ),
                       child: Row(
                         children: [
@@ -129,37 +129,31 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                           Icon(
                             Icons.camera_alt_outlined,
-                            size: 22,
+                            size: SizeConfig.getIconSize(22),
                             color: Colors.grey.shade700,
                           ),
                         ],
                       ),
                     ),
                     ContainerShadowBox(
-                      height: 55,
-                      width: 55,
-                      margin: const EdgeInsets.only(top: 15),
-                      borderRadius: BorderRadius.circular(18),
+                      height: SizeConfig.getHeight(55),
+                      width: SizeConfig.getWidth(55),
+                      margin: EdgeInsets.only(top: SizeConfig.getHeight(15)),
+                      borderRadius: BorderRadius.circular(SizeConfig.getRadius(18)),
                       imageAsset: "assets/icons/more_2.png",
                     )
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: SizeConfig.getHeight(30)),
               Align(
                 alignment: Alignment.centerLeft,
                 child: MyText(text: "Suitable recipe for ${widget.query}"),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: SizeConfig.getHeight(20)),
               Expanded(
                 child: isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
+                    ? const Center(child: CircularProgressIndicator())
                     : hasError
                         ? const Center(
                             child: Text(
@@ -178,53 +172,55 @@ class _SearchPageState extends State<SearchPage> {
                               onTap: () {
                                 log("search box pressed");
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => RecipeDetails(
-                                              recipe: recipeList[index],
-                                            )));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RecipeDetails(recipe: recipeList[index]),
+                                  ),
+                                );
                               },
-                              height: 120,
-                              width: width,
-                              margin: const EdgeInsets.only(bottom: 20),
-                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
-                              borderRadius: BorderRadius.circular(25),
+                              height: SizeConfig.getHeight(120),
+                              width: SizeConfig.screenWidth,
+                              margin: EdgeInsets.only(bottom: SizeConfig.getHeight(20)),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.getWidth(18),
+                                vertical: SizeConfig.getHeight(15),
+                              ),
+                              borderRadius: BorderRadius.circular(SizeConfig.getRadius(25)),
                               color: Colors.white,
                               child: Row(
                                 children: [
                                   ContainerShadowBox(
-                                    width: 90,
+                                    width: SizeConfig.getWidth(90),
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(13),
+                                    borderRadius: BorderRadius.circular(SizeConfig.getRadius(13)),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(13),
+                                      borderRadius: BorderRadius.circular(SizeConfig.getRadius(13)),
                                       child: Image.network(
                                         recipeList[index].appimgUrl,
                                         fit: BoxFit.fitWidth,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 25,
-                                  ),
+                                  SizedBox(width: SizeConfig.getWidth(25)),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        width: width - 200,
+                                        width: SizeConfig.getWidth(SizeConfig.screenWidth - 200),
                                         child: Text(
                                           recipeList[index].applabel,
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
-                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: SizeConfig.getFontSize(28),
+                                          ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 7,
-                                      ),
+                                      SizedBox(height: SizeConfig.getHeight(7)),
                                       SizedBox(
-                                        width: width - 200,
+                                        width: SizeConfig.getWidth(SizeConfig.screenWidth - 200),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
@@ -233,22 +229,20 @@ class _SearchPageState extends State<SearchPage> {
                                               hoursCount: recipeList[index].appPrepTime,
                                               fontColor: Colors.grey.shade600,
                                               fontColorBold: Colors.grey.shade800,
-                                              fontSize: 15,
-                                              heightBetweenRows: 4,
+                                              fontSize: SizeConfig.getFontSize(15),
+                                              heightBetweenRows: SizeConfig.getHeight(4),
                                             ),
-                                            const BookmarkState(
-                                              color: Colors.black,
-                                            ),
+                                            const BookmarkState(color: Colors.black),
                                           ],
                                         ),
-                                      )
+                                      ),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-              )
+              ),
             ],
           ),
         ),

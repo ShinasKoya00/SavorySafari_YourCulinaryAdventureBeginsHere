@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savory_safari/screens/homepage.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 import 'package:savory_safari/widgets/container_shadow_box.dart';
 import 'package:savory_safari/widgets/my_text.dart';
 
@@ -9,8 +10,11 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    SizeConfig.init(context); // Initialize SizeConfig
+
+    final height = SizeConfig.screenHeight;
+    final width = SizeConfig.screenWidth;
+
     return Scaffold(
       body: Container(
         height: height,
@@ -29,32 +33,50 @@ class OnboardingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const MyText(text: "Cooking", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
+            MyText(
+              text: "Cooking",
+              fontWeight: FontWeight.w900,
+              fontSize: SizeConfig.getFontSize(65),
+              color: MyColors.grey,
+            ),
             // Add some space between the texts
-            const MyText(text: "Like a", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
-
-            const MyText(text: "Chef", fontWeight: FontWeight.w900, fontSize: 65, color: MyColors.grey),
-            const SizedBox(height: 15),
-            const MyText(
-                text: "Is a Piece of Cake!", fontSize: 25, fontWeight: FontWeight.w100, color: MyColors.grey),
-            const SizedBox(height: 40),
-
+            MyText(
+              text: "Like a",
+              fontWeight: FontWeight.w900,
+              fontSize: SizeConfig.getFontSize(65),
+              color: MyColors.grey,
+            ),
+            MyText(
+              text: "Chef",
+              fontWeight: FontWeight.w900,
+              fontSize: SizeConfig.getFontSize(65),
+              color: MyColors.grey,
+            ),
+            SizedBox(height: SizeConfig.getHeight(15)),
+            MyText(
+              text: "Is a Piece of Cake!",
+              fontSize: SizeConfig.getFontSize(25),
+              fontWeight: FontWeight.w100,
+              color: MyColors.grey,
+            ),
+            SizedBox(height: SizeConfig.getHeight(40)),
             ContainerShadowBox(
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context) => const HomePage()));
-                },
-                height: 60,
-                width: 190,
-                borderRadius: BorderRadius.circular(16),
-                color: MyColors.darkGreen,
-                boxShadowColor: Colors.black,
-                text: "Get Started",
-                textSize: 18,
-                textColor: MyColors.grey),
-            const SizedBox(
-              height: 70,
-            )
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              },
+              height: SizeConfig.getHeight(60),
+              width: SizeConfig.getWidth(190),
+              borderRadius: BorderRadius.circular(SizeConfig.getRadius(16)),
+              color: MyColors.darkGreen,
+              boxShadowColor: Colors.black,
+              text: "Get Started",
+              textSize: SizeConfig.getFontSize(18),
+              textColor: MyColors.grey,
+            ),
+            SizedBox(height: SizeConfig.getHeight(70)),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:savory_safari/utils/colors.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart';
 
 class BookmarkState extends StatefulWidget {
   final double height;
@@ -23,6 +24,8 @@ class _BookmarkStateState extends State<BookmarkState> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context); // Initialize SizeConfig
+
     return SizedBox(
       height: widget.height,
       width: widget.width,
@@ -32,17 +35,11 @@ class _BookmarkStateState extends State<BookmarkState> {
             _isBookMarked = !_isBookMarked;
           });
         },
-        child: _isBookMarked
-            ? Icon(
-                CupertinoIcons.bookmark,
-                size: 22,
-                color: widget.color,
-              )
-            : const Icon(
-                CupertinoIcons.bookmark_fill,
-                size: 22,
-                color: MyColors.bottomNavGreenishYellow,
-              ),
+        child: Icon(
+          _isBookMarked ? CupertinoIcons.bookmark : CupertinoIcons.bookmark_fill,
+          size: SizeConfig.getIconSize(22), // Dynamic icon size
+          color: _isBookMarked ? widget.color : MyColors.bottomNavGreenishYellow,
+        ),
       ),
     );
   }

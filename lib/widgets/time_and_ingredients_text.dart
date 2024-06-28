@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savory_safari/utils/size_coonfiguration.dart'; // Import SizeConfig
 
 class TimeAndIngredientsText extends StatelessWidget {
   final int ingredientsCount;
@@ -9,17 +10,21 @@ class TimeAndIngredientsText extends StatelessWidget {
   final double fontSize;
 
   const TimeAndIngredientsText({
-    super.key,
+    Key? key,
     required this.ingredientsCount,
     required this.hoursCount,
     this.fontColor = Colors.white,
     this.fontColorBold = Colors.white,
     this.heightBetweenRows = 2.0,
     this.fontSize = 14.0,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context); // Initialize SizeConfig
+
+    double scaledFontSize = SizeConfig.getFontSize(fontSize); // Dynamic font size
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,7 +34,7 @@ class TimeAndIngredientsText extends StatelessWidget {
               ingredientsCount.toString(),
               style: TextStyle(
                 color: fontColorBold,
-                fontSize: fontSize,
+                fontSize: scaledFontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -40,7 +45,7 @@ class TimeAndIngredientsText extends StatelessWidget {
               "ingredients",
               style: TextStyle(
                 color: fontColor,
-                fontSize: fontSize,
+                fontSize: scaledFontSize,
               ),
             )
           ],
@@ -54,7 +59,7 @@ class TimeAndIngredientsText extends StatelessWidget {
               hoursCount.toString(),
               style: TextStyle(
                 color: fontColorBold,
-                fontSize: fontSize,
+                fontSize: scaledFontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -65,7 +70,7 @@ class TimeAndIngredientsText extends StatelessWidget {
               "hours",
               style: TextStyle(
                 color: fontColor,
-                fontSize: fontSize,
+                fontSize: scaledFontSize,
               ),
             )
           ],
